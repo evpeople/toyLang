@@ -1,13 +1,19 @@
 package main
 
 import (
-	"evpeople/toyLang/bot"
+	"evpeople/toyLang/repl"
 	"fmt"
+	"os"
+	"os/user"
 )
 
 func main() {
-	a := bot.New("sd", make(map[string]string), 21)
-	a.AddQa("ds", "wd")
-	fmt.Println(a)
-
+	user, err := user.Current()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Hello %s! This is the Monkey programming language!\n",
+		user.Username)
+	fmt.Printf("Feel free to type in commands\n")
+	repl.Start(os.Stdin, os.Stdout)
 }
