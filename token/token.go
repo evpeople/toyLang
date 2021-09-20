@@ -15,7 +15,7 @@ const (
 	EOF     = "EOF"
 
 	IDENT = "IDENT"
-	INI   = "INI"
+	INT   = "INT"
 
 	ASSIGN = "="
 	PLUS   = "+"
