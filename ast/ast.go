@@ -137,3 +137,23 @@ func (pe *PrefixExpression) String() string {
 	out.WriteString(")")
 	return out.String()
 }
+
+//InfixExpression 用于二元运算符
+type InfixExpression struct {
+	Token    token.Token // The operator token, e.g. +
+	Left     Expression  //有左右了
+	Operator string
+	Right    Expression
+}
+
+func (oe *InfixExpression) expressionNode()      {}
+func (oe *InfixExpression) TokenLiteral() string { return oe.Token.Literal }
+func (oe *InfixExpression) String() string {
+	var out bytes.Buffer
+	out.WriteString("(")
+	out.WriteString(oe.Left.String())
+	out.WriteString(" " + oe.Operator + " ")
+	out.WriteString(oe.Right.String())
+	out.WriteString(")")
+	return out.String()
+}
