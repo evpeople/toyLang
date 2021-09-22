@@ -138,7 +138,7 @@ func (pe *PrefixExpression) String() string {
 	return out.String()
 }
 
-//InfixExpression 用于二元运算符
+//InfixExpression 用于二元运算符，此处使用（ 展示出优先级
 type InfixExpression struct {
 	Token    token.Token // The operator token, e.g. +
 	Left     Expression  //有左右了

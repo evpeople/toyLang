@@ -152,6 +152,12 @@ func (p *Parser) registerPrefix(tokenType token.TokenType, fn prefixParseFn) {
 func (p *Parser) registerInfix(tokenType token.TokenType, fn infixParseFn) {
 	p.infixParseFns[tokenType] = fn
 }
+
+/*
+1+2+3
+首先是1，然后call int的解析函数
+*/
+
 func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
 	stmt := &ast.ExpressionStatement{Token: p.curToken}
 	stmt.Expression = p.parseExpression(LOWEST)
@@ -166,7 +172,6 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 		p.noPrefixParseFnError(p.curToken.Type)
 		return nil
 	}
-
 	leftExp := prefix() //计算描述符
 	//判断描述符并得出最终结果
 	for !p.peekTokenIs(token.SEMICOLON) && precedence < p.peekPrecedence() {
