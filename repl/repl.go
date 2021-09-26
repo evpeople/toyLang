@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"evpeople/toyLang/evaluator"
 	"evpeople/toyLang/lexer"
+	"evpeople/toyLang/object"
 	"evpeople/toyLang/parser"
 	"fmt"
 	"io"
@@ -14,6 +15,7 @@ const PROMPT = ">>"
 //Start 函数的out似乎是个伏笔
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
 	for {
 		fmt.Printf("%s", PROMPT)
 		scanned := scanner.Scan()
@@ -28,7 +30,7 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-		evaluated := evaluator.Eval(program)
+		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
