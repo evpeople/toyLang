@@ -55,7 +55,7 @@ func (p *Parser) parseSpeakStatement() *ast.SpeakStatement {
 }
 func (p *Parser) parseSentence() *ast.SentenceStatement {
 	var st string
-	for p.peekTokenIs(token.STRING) || p.peekTokenIs(token.PLUS) {
+	for p.expectPeek(token.STRING) || p.expectPeek(token.PLUS) {
 		switch tk := p.peekToken; tk.Type {
 		case token.STRING:
 			st += tk.Literal
@@ -97,10 +97,16 @@ func (p *Parser) Errors() []string {
 }
 func (p *Parser) expectPeek(t token.TokenType) bool {
 	if p.peekTokenIs(t) {
-		p.nextToken()
 		return true
 	} else {
 		p.peekError(t)
 		return false
+	}
+}
+func checkError(p *Parser) {
+	if len(p.errors) != 0 {
+		for _, v := range p.errors {
+			fmt.Println(v)
+		}
 	}
 }

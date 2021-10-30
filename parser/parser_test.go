@@ -54,10 +54,12 @@ func TestSpeak(t *testing.T) {
 	input := `
 	Speak 'hello wo pao de zui kuai'
 	Speak 'hello'+' world'
+
 	`
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParserProgram()
+	checkError(p)
 	if program == nil {
 		t.Fatalf("ParseProgram() returned nil")
 	}
