@@ -6,6 +6,8 @@ type Token struct {
 	Literal string
 }
 
+//TODO: 完成变量在运行前的读取，一个env的包
+//TODO: Speak 'Speak'的测试
 const (
 	STRING  = "STRING"
 	EOF     = "EOF"

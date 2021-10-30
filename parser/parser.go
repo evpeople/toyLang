@@ -42,11 +42,38 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.STEP:
 		return p.parseStepStatement()
+	case token.SPEAK:
+		return p.parseSpeakStatement()
 	default:
 		return nil
 	}
 }
+func (p *Parser) parseSpeakStatement() *ast.SpeakStatement {
+	stmt := &ast.SpeakStatement{Token: p.curToken}
+	stmt.Expression = p.parseSentence()
+	return stmt
+}
+func (p *Parser) parseSentence() *ast.SentenceStatement {
+	var st string
+	for p.peekTokenIs(token.STRING) || p.peekTokenIs(token.PLUS) {
+		switch tk := p.peekToken; tk.Type {
+		case token.STRING:
+			st += tk.Literal
+			p.nextToken()
+		case token.PLUS:
+			p.nextToken()
+		}
 
+		//TODO: 先处理没有dollar的情况，然后再处理有dollar的情况。
+		//TODO: 没有dollar的情况下，就是switch (string) (plus) 然后得出结果，返回一个ast
+		//TODO: 不算单纯的parse，但是可能算是优化过了
+		//TODO：还是相当于对每次连接做一个新的AST了，
+		//TODO: 把这段结合在一起，原本的也是应该算在eval中，所以抄一下书的String的前部分。
+
+	}
+	stmt := &ast.SentenceStatement{Token: token.Token{Type: token.STRING, Literal: st}, Value: st}
+	return stmt
+}
 func (p *Parser) parseStepStatement() *ast.StepStatement {
 	stmt := &ast.StepStatement{Token: p.curToken}
 	p.nextToken()
@@ -68,7 +95,7 @@ func (p *Parser) peekError(t token.TokenType) {
 func (p *Parser) Errors() []string {
 	return p.errors
 }
-func (p *Parser) expectPeek(t token.TokenType) bool { //通过检测下一个token的类型来保证整体的正确性，这时候不易debug，因为返回了个nil
+func (p *Parser) expectPeek(t token.TokenType) bool {
 	if p.peekTokenIs(t) {
 		p.nextToken()
 		return true

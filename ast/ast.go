@@ -45,7 +45,24 @@ func (i *Identifier) expressionNode()      {}
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
 
 type SpeakStatement struct {
+	Token      token.Token
+	Expression Expression
 }
+
+func (SS *SpeakStatement) statementNode()       {}
+func (SS *SpeakStatement) TokenLiteral() string { return SS.Token.Literal }
+
+type SentenceStatement struct {
+	Token token.Token //理论上是string
+	Value string      //通过拼接 + 和$ 得出的结果
+}
+
+func (st *SentenceStatement) expressionNode() {
+}
+func (st *SentenceStatement) TokenLiteral() string {
+	return st.Token.Literal
+}
+
 type ListenStatement struct {
 }
 type BranchStatement struct {
