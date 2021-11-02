@@ -48,9 +48,25 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseListenStatement()
 	case token.BRANCH:
 		return p.parseBranchStatement()
+	case token.SILENCE:
+		return p.parseSilenceStatement()
 	default:
 		return nil
 	}
+}
+func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
+
+	stmt := &ast.SilenceStatement{Token: p.curToken}
+	stmt.Expression = p.parseSilence()
+	return stmt
+}
+func (p *Parser) parseSilence() *ast.SilenceBranch {
+	stmt := &ast.SilenceBranch{}
+	if p.expectPeek(token.IDENT) {
+		stmt.Branch = p.peekToken.Literal
+		p.nextToken()
+	}
+	return stmt
 }
 func (p *Parser) parseBranchStatement() *ast.BranchStatement {
 	stmt := &ast.BranchStatement{Token: p.curToken}
