@@ -44,13 +44,39 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseStepStatement()
 	case token.SPEAK:
 		return p.parseSpeakStatement()
+	case token.LISTEN:
+		return p.parseListenStatement()
 	default:
 		return nil
 	}
 }
+func (p *Parser) parseListenStatement() *ast.ListenStatement {
+	stmt := &ast.ListenStatement{Token: p.curToken}
+	stmt.Expression = p.parseListenTime()
+	p.errors = nil
+	//TODO:处理error重复报出的问题
+	return stmt
+}
 func (p *Parser) parseSpeakStatement() *ast.SpeakStatement {
 	stmt := &ast.SpeakStatement{Token: p.curToken}
 	stmt.Expression = p.parseSentence()
+	p.errors = nil
+	//TODO:处理error重复报出的问题
+	return stmt
+}
+func (p *Parser) parseListenTime() *ast.ListenTime {
+	time := make([]string, 0)
+	p.nextToken()
+	for p.peekToken.Type == token.NUM || p.peekToken.Type == token.COMMA {
+		if p.curToken.Type == token.COMMA {
+			p.nextToken()
+			continue
+		}
+		time = append(time, p.curToken.Literal)
+		p.nextToken()
+	}
+	time = append(time, p.curToken.Literal)
+	stmt := &ast.ListenTime{Start: time[0], Last: time[1]}
 	return stmt
 }
 func (p *Parser) parseSentence() *ast.SentenceStatement {
@@ -63,7 +89,6 @@ func (p *Parser) parseSentence() *ast.SentenceStatement {
 		case token.PLUS:
 			p.nextToken()
 		}
-
 		//TODO: 先处理没有dollar的情况，然后再处理有dollar的情况。
 		//TODO: 没有dollar的情况下，就是switch (string) (plus) 然后得出结果，返回一个ast
 		//TODO: 不算单纯的parse，但是可能算是优化过了

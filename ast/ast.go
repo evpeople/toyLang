@@ -64,9 +64,47 @@ func (st *SentenceStatement) TokenLiteral() string {
 }
 
 type ListenStatement struct {
+	Token      token.Token
+	Expression Expression
 }
+
+func (LS *ListenStatement) statementNode()       {}
+func (LS *ListenStatement) TokenLiteral() string { return LS.Token.Literal }
+
+type ListenTime struct {
+	Start string
+	Last  string
+}
+
+func (lt *ListenTime) expressionNode() {
+}
+func (lt *ListenTime) TokenLiteral() string {
+	return "Start is " + lt.Start + "\nEnd is " + lt.Last
+}
+
+// func (lt *ListenTime) New(start, last string) {
+
+// }
+
 type BranchStatement struct {
+	Token      token.Token
+	Expression Expression
 }
+
+func (LS *BranchStatement) statementNode()       {}
+func (LS *BranchStatement) TokenLiteral() string { return LS.Token.Literal }
+
+type BranchCase struct {
+	Case   string
+	Branch string
+}
+
+func (lt *BranchCase) expressionNode() {
+}
+func (lt *BranchCase) TokenLiteral() string {
+	return "Case is " + lt.Case + "\nBranch is " + lt.Branch
+}
+
 type SilenceStatement struct {
 }
 type DefaultStatement struct {
