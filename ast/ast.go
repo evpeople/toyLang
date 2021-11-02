@@ -106,7 +106,23 @@ func (lt *BranchCase) TokenLiteral() string {
 }
 
 type SilenceStatement struct {
+	Token      token.Token
+	Expression Expression
 }
+
+func (LS *SilenceStatement) statementNode()       {}
+func (LS *SilenceStatement) TokenLiteral() string { return LS.Token.Literal }
+
+type SilenceBranch struct {
+	Branch string
+}
+
+func (lt *SilenceBranch) expressionNode() {
+}
+func (lt *SilenceBranch) TokenLiteral() string {
+	return "Branch is " + lt.Branch
+}
+
 type DefaultStatement struct {
 }
 type ExitStatement struct {
