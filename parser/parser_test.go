@@ -96,3 +96,51 @@ func testSpeakStatement(t *testing.T, s ast.Statement, sentence string) bool {
 	}
 	return true
 }
+
+func TestListen(t *testing.T) {
+	input := `
+	Listen 5, 20
+	Listen 6,20
+	`
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParserProgram()
+	checkError(p)
+	if program == nil {
+		t.Fatalf("ParseProgram() returned nil")
+	}
+	if len(program.Statements) != 2 {
+		t.Fatalf("program.Statements does not contain 2 statements. got=%d",
+			len(program.Statements))
+	}
+	tests := []struct {
+		begin    string
+		lastTime string
+	}{
+		{"5", "20"},
+		{"6", "20"},
+	}
+	for i, tt := range tests {
+		stmt := program.Statements[i]
+		sentence := "Start is " + tt.begin + "\nEnd is " + tt.lastTime
+		if !testListenStatement(t, stmt, sentence) {
+			return
+		}
+	}
+}
+func testListenStatement(t *testing.T, s ast.Statement, sentence string) bool {
+	if s.TokenLiteral() != "Listen" {
+		t.Errorf("want 'Listen', got=%q", s.TokenLiteral())
+		return false
+	}
+	listenStmt, ok := s.(*ast.ListenStatement)
+	if !ok {
+		t.Errorf("want *ast.ListenStatement, got=%T", s)
+		return false
+	}
+	if listenStmt.Expression.TokenLiteral() != sentence {
+		t.Errorf("want %s, got=%s", sentence, listenStmt.Expression.TokenLiteral())
+		return false
+	}
+	return true
+}
