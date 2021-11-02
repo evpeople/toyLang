@@ -46,9 +46,32 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseSpeakStatement()
 	case token.LISTEN:
 		return p.parseListenStatement()
+	case token.BRANCH:
+		return p.parseBranchStatement()
 	default:
 		return nil
 	}
+}
+func (p *Parser) parseBranchStatement() *ast.BranchStatement {
+	stmt := &ast.BranchStatement{Token: p.curToken}
+	stmt.Expression = p.parseBranchCase()
+	return stmt
+}
+
+func (p *Parser) parseBranchCase() *ast.BranchCase {
+	stmt := &ast.BranchCase{}
+	if p.expectPeek(token.STRING) {
+		stmt.Case = p.peekToken.Literal
+		p.nextToken()
+	}
+	if p.expectPeek(token.COMMA) {
+		p.nextToken()
+	}
+	if p.expectPeek(token.IDENT) {
+		stmt.Branch = p.peekToken.Literal
+		p.nextToken()
+	}
+	return stmt
 }
 func (p *Parser) parseListenStatement() *ast.ListenStatement {
 	stmt := &ast.ListenStatement{Token: p.curToken}
