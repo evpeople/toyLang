@@ -50,6 +50,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseBranchStatement()
 	case token.SILENCE:
 		return p.parseSilenceStatement()
+	case token.DEFAULT:
+		return p.parseSilenceStatement()
 	default:
 		return nil
 	}
