@@ -144,3 +144,51 @@ func testListenStatement(t *testing.T, s ast.Statement, sentence string) bool {
 	}
 	return true
 }
+
+func TestBranch(t *testing.T) {
+	input := `
+	Branch 'happy',Proc
+	Branch 'bad',omp
+	`
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParserProgram()
+	checkError(p)
+	if program == nil {
+		t.Fatalf("ParseProgram() returned nil")
+	}
+	if len(program.Statements) != 2 {
+		t.Fatalf("program.Statements does not contain 2 statements. got=%d",
+			len(program.Statements))
+	}
+	tests := []struct {
+		Case   string
+		Branch string
+	}{
+		{"happy", "Proc"},
+		{"bad", "omp"},
+	}
+	for i, tt := range tests {
+		stmt := program.Statements[i]
+		sentence := "Case is " + tt.Case + "\nBranch is " + tt.Branch
+		if !testBranchStatement(t, stmt, sentence) {
+			return
+		}
+	}
+}
+func testBranchStatement(t *testing.T, s ast.Statement, sentence string) bool {
+	if s.TokenLiteral() != "Branch" {
+		t.Errorf("want 'Branch', got=%q", s.TokenLiteral())
+		return false
+	}
+	BranchStmt, ok := s.(*ast.BranchStatement)
+	if !ok {
+		t.Errorf("want *ast.ListenStatement, got=%T", s)
+		return false
+	}
+	if BranchStmt.Expression.TokenLiteral() != sentence {
+		t.Errorf("want %s, got=%s", sentence, BranchStmt.Expression.TokenLiteral())
+		return false
+	}
+	return true
+}
