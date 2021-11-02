@@ -239,3 +239,49 @@ func testSilenceStatement(t *testing.T, s ast.Statement, sentence string) bool {
 	}
 	return true
 }
+func TestDefault(t *testing.T) {
+	input := `
+	Default  silence
+	Default  s
+	`
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParserProgram()
+	checkError(p)
+	if program == nil {
+		t.Fatalf("ParseProgram() returned nil")
+	}
+	if len(program.Statements) != 2 {
+		t.Fatalf("program.Statements does not contain 2 statements. got=%d",
+			len(program.Statements))
+	}
+	tests := []struct {
+		Branch string
+	}{
+		{"silence"},
+		{"s"},
+	}
+	for i, tt := range tests {
+		stmt := program.Statements[i]
+		sentence := "Branch is " + tt.Branch
+		if !testDefaultStatement(t, stmt, sentence) {
+			return
+		}
+	}
+}
+func testDefaultStatement(t *testing.T, s ast.Statement, sentence string) bool {
+	if s.TokenLiteral() != "Default" {
+		t.Errorf("want 'Branch', got=%q", s.TokenLiteral())
+		return false
+	}
+	BranchStmt, ok := s.(*ast.SilenceStatement)
+	if !ok {
+		t.Errorf("want *ast.ListenStatement, got=%T", s)
+		return false
+	}
+	if BranchStmt.Expression.TokenLiteral() != sentence {
+		t.Errorf("want %s, got=%s", sentence, BranchStmt.Expression.TokenLiteral())
+		return false
+	}
+	return true
+}
