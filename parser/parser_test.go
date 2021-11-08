@@ -276,11 +276,52 @@ func testDefaultStatement(t *testing.T, s ast.Statement, sentence string) bool {
 	}
 	BranchStmt, ok := s.(*ast.SilenceStatement)
 	if !ok {
-		t.Errorf("want *ast.ListenStatement, got=%T", s)
+		t.Errorf("want *ast.Default, got=%T", s)
 		return false
 	}
 	if BranchStmt.Expression.TokenLiteral() != sentence {
 		t.Errorf("want %s, got=%s", sentence, BranchStmt.Expression.TokenLiteral())
+		return false
+	}
+	return true
+}
+
+func TestExit(t *testing.T) {
+	input := `
+	Exit	
+	`
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParserProgram()
+	checkError(p)
+	if program == nil {
+		t.Fatalf("ParseProgram() returned nil")
+	}
+	if len(program.Statements) != 1 {
+		t.Fatalf("program.Statements does not contain 2 statements. got=%d",
+			len(program.Statements))
+	}
+	tests := []struct {
+		Command string
+	}{
+		{"Exit"},
+	}
+	for i, tt := range tests {
+		stmt := program.Statements[i]
+		sentence := tt.Command
+		if !testExitStatement(t, stmt, sentence) {
+			return
+		}
+	}
+}
+func testExitStatement(t *testing.T, s ast.Statement, sentence string) bool {
+	if s.TokenLiteral() != "Exit" {
+		t.Errorf("want 'Exit', got=%q", s.TokenLiteral())
+		return false
+	}
+	_, ok := s.(*ast.ExitStatement)
+	if !ok {
+		t.Errorf("want *ast.ExitStatement, got=%T", s)
 		return false
 	}
 	return true
