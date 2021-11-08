@@ -126,4 +126,8 @@ func (lt *SilenceBranch) TokenLiteral() string {
 type DefaultStatement struct {
 }
 type ExitStatement struct {
+	Token token.Token
 }
+
+func (LS *ExitStatement) statementNode()       {}
+func (LS *ExitStatement) TokenLiteral() string { return LS.Token.Literal }

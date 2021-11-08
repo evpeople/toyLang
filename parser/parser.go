@@ -52,9 +52,16 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseSilenceStatement()
 	case token.DEFAULT:
 		return p.parseSilenceStatement()
+	case token.EXIT:
+		return p.parseExitStatement()
 	default:
 		return nil
 	}
+}
+func (p *Parser) parseExitStatement() *ast.ExitStatement {
+	stmt := &ast.ExitStatement{Token: p.curToken}
+	p.nextToken()
+	return stmt
 }
 func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
 
