@@ -58,3 +58,48 @@ func testEvalSpeak(input string) string {
 	return Eval(program, env).Inspect()
 	// return Eval(program, env).(*object.String).Value
 }
+func TestEvalListen(t *testing.T) {
+	tests := []struct {
+		input string
+	}{
+		{"Listen 5,20"},
+	}
+	for _, tt := range tests {
+		testEvalListen(tt.input)
+		// testIntegerObject(t, evaluated, tt.expected)
+	}
+}
+func testEvalListen(input string) {
+	l := lexer.New(input)
+	p := parser.New(l)
+	program := p.ParserProgram()
+	env := object.NewEnvironment() //每次新建一个环境
+	env.Set("name", "evpeople")
+	// Eval(program, env).(*object.String).Value
+
+	Eval(program, env)
+}
+
+func TestAll(t *testing.T) {
+	input := `
+	Step welcome
+	Speak $name + ' happy'+'world'
+	Listen 2,3
+	Branch "tousu",complainProc
+	Branch "zhangdan",billProc
+	Silence silence
+	Default defaultProc
+	Step complainProc
+	Speak 'ni de yi jian shi wo men de'
+	Listen 2,4
+	Default thanks
+	`
+	l := lexer.New(input)
+	p := parser.New(l)
+	program := p.ParserProgram()
+	env := object.NewEnvironment() //每次新建一个环境
+	env.Set("name", "evpeople")
+	// Eval(program, env).(*object.String).Value
+
+	Eval(program, env)
+}

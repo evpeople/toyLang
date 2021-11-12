@@ -3,6 +3,8 @@ package evaluator
 import (
 	"evpeople/toyLang/ast"
 	"evpeople/toyLang/object"
+	"strconv"
+	"time"
 )
 
 func Eval(node ast.Node, env *object.Environment) object.Object {
@@ -12,13 +14,31 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.SpeakStatement:
 		return evalSpeak(node, env)
 	case *ast.ListenStatement:
-		// return evalListen(node, env)
+		return evalListen(node, env)
 	case *ast.BranchStatement:
 	case *ast.SilenceStatement:
 	case *ast.ExitStatement:
 		return evalExit(node, env)
 	}
 	var result object.Boolean
+	return &result
+}
+func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
+	var result object.String
+	s := p.Expression.TokenLiteral()
+	// a := len(s)
+	begin := ""
+	for i := 9; s[i] != '\n'; i++ {
+		begin += string(s[i])
+	}
+
+	end := ""
+	for i := 18; i < len(s); i++ {
+		end += string(s[i])
+	}
+	b, _ := strconv.Atoi(begin)
+	e, _ := strconv.Atoi(end)
+	time.Sleep(time.Duration(b+e) * time.Second)
 	return &result
 }
 func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Object {
