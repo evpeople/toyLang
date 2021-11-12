@@ -129,13 +129,22 @@ func (p *Parser) parseListenTime() *ast.ListenTime {
 }
 func (p *Parser) parseSentence() *ast.SentenceStatement {
 	var st string
-	for p.expectPeek(token.STRING) || p.expectPeek(token.PLUS) {
+	var dollarMap map[string]string
+	for p.expectPeek(token.STRING) || p.expectPeek(token.PLUS) || p.expectPeek(token.DOLLAR) {
 		switch tk := p.peekToken; tk.Type {
 		case token.STRING:
 			st += tk.Literal
 			p.nextToken()
 		case token.PLUS:
 			p.nextToken()
+		case token.DOLLAR:
+			if dollarMap == nil {
+				dollarMap = make(map[string]string)
+			}
+			p.nextToken()
+			st += "$" + p.peekToken.Literal
+			p.nextToken()
+			dollarMap[p.curToken.Literal] = ""
 		}
 		//TODO: 先处理没有dollar的情况，然后再处理有dollar的情况。
 		//TODO: 没有dollar的情况下，就是switch (string) (plus) 然后得出结果，返回一个ast
@@ -144,7 +153,7 @@ func (p *Parser) parseSentence() *ast.SentenceStatement {
 		//TODO: 把这段结合在一起，原本的也是应该算在eval中，所以抄一下书的String的前部分。
 
 	}
-	stmt := &ast.SentenceStatement{Token: token.Token{Type: token.STRING, Literal: st}, Value: st}
+	stmt := &ast.SentenceStatement{Token: token.Token{Type: token.STRING, Literal: st}, Value: st, DollarMap: dollarMap}
 	return stmt
 }
 func (p *Parser) parseStepStatement() *ast.StepStatement {

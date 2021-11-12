@@ -53,14 +53,41 @@ func (SS *SpeakStatement) statementNode()       {}
 func (SS *SpeakStatement) TokenLiteral() string { return SS.Token.Literal }
 
 type SentenceStatement struct {
-	Token token.Token //理论上是string
-	Value string      //通过拼接 + 和$ 得出的结果
+	Token     token.Token //理论上是string
+	Value     string      //通过拼接 + 和$ 得出的结果
+	DollarMap map[string]string
 }
 
 func (st *SentenceStatement) expressionNode() {
 }
 func (st *SentenceStatement) TokenLiteral() string {
 	return st.Token.Literal
+}
+func (st *SentenceStatement) RealTokenLiteral() string {
+	// var s string
+	for i := 0; i < len(st.Value); i++ {
+		if st.Value[i] == '$' {
+			s := st.Value[0:i]
+			t, index := st.readmap(i + 1)
+			st.Value = s + " " + t + st.Value[index:len(st.Value)]
+			i = index
+		}
+	}
+	return st.Value
+}
+func (st *SentenceStatement) readmap(index int) (string, int) {
+	var s string
+	i := index
+	for ; st.Value[i] != ' '; i++ {
+		s += string(st.Value[i])
+	}
+	trueVar, ok := st.DollarMap[s]
+	if ok {
+		return trueVar, i
+	} else {
+		println("readmap is wrong, and the key is " + s)
+		return s, i
+	}
 }
 
 type ListenStatement struct {

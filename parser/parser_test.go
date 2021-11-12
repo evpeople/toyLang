@@ -54,6 +54,7 @@ func TestSpeak(t *testing.T) {
 	input := `
 	Speak 'hello wo pao de zui kuai'
 	Speak 'hello'+' world'
+	Speak 'hello'+' world'+$name+' happy'
 
 	`
 	l := lexer.New(input)
@@ -63,7 +64,7 @@ func TestSpeak(t *testing.T) {
 	if program == nil {
 		t.Fatalf("ParseProgram() returned nil")
 	}
-	if len(program.Statements) != 2 {
+	if len(program.Statements) != 3 {
 		t.Fatalf("program.Statements does not contain 2 statements. got=%d",
 			len(program.Statements))
 	}
@@ -72,6 +73,7 @@ func TestSpeak(t *testing.T) {
 	}{
 		{"hello wo pao de zui kuai"},
 		{"hello world"},
+		{"hello world$name happy"},
 	}
 	for i, tt := range tests {
 		stmt := program.Statements[i]
