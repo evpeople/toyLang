@@ -12,7 +12,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.SpeakStatement:
 		return evalSpeak(node, env)
 	case *ast.ListenStatement:
-		return evalListen(node, env)
+		// return evalListen(node, env)
 	case *ast.BranchStatement:
 	case *ast.SilenceStatement:
 	case *ast.ExitStatement:
@@ -23,7 +23,16 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 }
 func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Object {
 	var result object.String
-	result.Value = program.Expression.TokenLiteral()
+	if program.Expression.(*ast.SentenceStatement).DollarMap == nil {
+		result.Value = program.Expression.TokenLiteral()
+	} else {
+		for k, _ := range program.Expression.(*ast.SentenceStatement).DollarMap {
+			if realVar, ok := env.Get(k); ok {
+				program.Expression.(*ast.SentenceStatement).DollarMap[k] = realVar
+			}
+		}
+		result.Value = program.Expression.(*ast.SentenceStatement).RealTokenLiteral()
+	}
 	return &result
 }
 func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object {

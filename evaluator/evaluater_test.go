@@ -35,8 +35,9 @@ func TestEvalSpeak(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{"	Speak 'hello wo pao de zui kuai'", "hello wo pao de zui kuai"},
+		{"Speak 'hello wo pao de zui kuai'", "hello wo pao de zui kuai"},
 		{"Speak 'hello'+' world'", "hello world"},
+		{"Speak 'hello'+' world'+$name+' happy'", "hello world evpeople happy"},
 	}
 	for _, tt := range tests {
 		evaluated := testEvalSpeak(tt.input)
@@ -51,6 +52,7 @@ func testEvalSpeak(input string) string {
 	p := parser.New(l)
 	program := p.ParserProgram()
 	env := object.NewEnvironment() //每次新建一个环境
+	env.Set("name", "evpeople")
 	// Eval(program, env).(*object.String).Value
 
 	return Eval(program, env).Inspect()
