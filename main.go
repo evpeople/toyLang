@@ -21,6 +21,21 @@ func main() {
 	Speak 'ni de yi jian shi wo men de'
 	Listen 2,4
 	Default thanks
+	Step thanks
+	Speak 'thank you'
+	Exit
+	Step billProc
+	Speak 'your zhangdan'+$amount
+	Exit
+	Step silenceProc
+	Speak 'I can't Listen'
+	Branch 'tousu',complainProc
+	Branch 'zhangdan',billProc
+	Silence silenceProc
+	Default defaultProc
+	Step defaultProc
+	Speak 'I am defautProc'
+	Exit
 	`
 	l := lexer.New(input)
 	p := parser.New(l)
