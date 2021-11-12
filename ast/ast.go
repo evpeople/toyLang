@@ -29,8 +29,10 @@ func (p *Program) TokenLiteral() string {
 }
 
 type StepStatement struct {
-	Token token.Token
-	Name  *Identifier
+	Token        token.Token
+	Name         *Identifier
+	ALLStatement []Statement
+	CaseBranch   map[string]string
 }
 
 func (SS *StepStatement) statementNode()       {}
@@ -104,6 +106,7 @@ type ListenTime struct {
 }
 
 func (lt *ListenTime) expressionNode() {
+	return
 }
 func (lt *ListenTime) TokenLiteral() string {
 	return "Start is " + lt.Start + "\nEnd is " + lt.Last
@@ -147,11 +150,17 @@ type SilenceBranch struct {
 func (lt *SilenceBranch) expressionNode() {
 }
 func (lt *SilenceBranch) TokenLiteral() string {
-	return "Branch is " + lt.Branch
+	return lt.Branch
 }
 
 type DefaultStatement struct {
+	Token      token.Token
+	Expression Expression
 }
+
+func (LS *DefaultStatement) statementNode()       {}
+func (LS *DefaultStatement) TokenLiteral() string { return LS.Token.Literal }
+
 type ExitStatement struct {
 	Token token.Token
 }

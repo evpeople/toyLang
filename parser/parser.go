@@ -7,6 +7,10 @@ import (
 	"fmt"
 )
 
+var STEPINDEX map[string]int
+
+// var DEFAULT string
+
 type Parser struct {
 	l         *lexer.Lexer
 	errors    []string
@@ -29,19 +33,26 @@ func (p *Parser) nextToken() {
 func (p *Parser) ParserProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = []ast.Statement{}
+	i := 0
 	for !p.curTokenIs(token.EOF) {
-		stmt := p.parseStatement()
+		stmt := p.parseStatement(i)
+		i++
 		if stmt != nil {
 			program.Statements = append(program.Statements, stmt)
 		}
-		p.nextToken()
+		// p.nextToken()
 	}
 	return program
 }
-func (p *Parser) parseStatement() ast.Statement {
+func (p *Parser) parseStatement(index int) ast.Statement {
 	switch p.curToken.Type {
 	case token.STEP:
-		return p.parseStepStatement()
+		a := p.parseStepStatement()
+		if STEPINDEX == nil {
+			STEPINDEX = make(map[string]int)
+		}
+		STEPINDEX[a.Name.TokenLiteral()] = index
+		return a
 	case token.SPEAK:
 		return p.parseSpeakStatement()
 	case token.LISTEN:
@@ -66,6 +77,12 @@ func (p *Parser) parseExitStatement() *ast.ExitStatement {
 func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
 
 	stmt := &ast.SilenceStatement{Token: p.curToken}
+	stmt.Expression = p.parseSilence()
+	return stmt
+}
+func (p *Parser) parseDefaultStatement() *ast.DefaultStatement {
+
+	stmt := &ast.DefaultStatement{Token: p.curToken}
 	stmt.Expression = p.parseSilence()
 	return stmt
 }
@@ -161,6 +178,29 @@ func (p *Parser) parseStepStatement() *ast.StepStatement {
 	p.nextToken()
 	name := &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 	stmt.Name = name
+	i := 0
+	//TODO:需要用这个i,算出silence可能。
+	for !p.curTokenIs(token.STEP) && !p.curTokenIs(token.EOF) {
+		ostmt := p.parseStatement(-1)
+
+		if ostmt != nil {
+			stmt.ALLStatement = append(stmt.ALLStatement, ostmt)
+			if stmt.CaseBranch == nil {
+				stmt.CaseBranch = make(map[string]string)
+			}
+			if s, ok := ostmt.(*ast.SilenceStatement); ok {
+				// if s.TokenLiteral() == "Silence" {
+				stmt.CaseBranch[s.TokenLiteral()] = s.Expression.TokenLiteral()
+				// }
+			}
+			if t, ok := ostmt.(*ast.BranchStatement); ok {
+				stmt.CaseBranch[t.Expression.(*ast.BranchCase).Case] = t.Expression.(*ast.BranchCase).Branch
+			}
+		}
+
+		i++
+		p.nextToken()
+	}
 	return stmt
 }
 func (p *Parser) curTokenIs(t token.TokenType) bool {
