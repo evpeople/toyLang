@@ -28,7 +28,7 @@ func main() {
 	Speak 'your zhangdan'+$amount
 	Exit
 	Step silenceProc
-	Speak 'I can't Listen'
+	Speak 'I can not Listen'
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
 	Silence silenceProc
