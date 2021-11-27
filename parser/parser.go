@@ -71,7 +71,7 @@ func (p *Parser) parseStatement(index int) ast.Statement {
 }
 func (p *Parser) parseExitStatement() *ast.ExitStatement {
 	stmt := &ast.ExitStatement{Token: p.curToken}
-	p.nextToken()
+	// p.nextToken()
 	return stmt
 }
 func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
