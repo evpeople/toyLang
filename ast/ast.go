@@ -80,7 +80,7 @@ func (st *SentenceStatement) RealTokenLiteral() string {
 func (st *SentenceStatement) readmap(index int) (string, int) {
 	var s string
 	i := index
-	for ; st.Value[i] != ' '; i++ {
+	for ; i < len(st.Value) && st.Value[i] != ' '; i++ {
 		s += string(st.Value[i])
 	}
 	trueVar, ok := st.DollarMap[s]
