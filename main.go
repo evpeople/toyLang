@@ -8,14 +8,13 @@ import (
 )
 
 func main() {
-
 	input := `
 	Step welcome
 	Speak $name + ' happy'+'world'
 	Listen 2,3
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
-	Silence silence
+	Silence silenceProc
 	Default defaultProc
 	Step complainProc
 	Speak 'ni de yi jian shi wo men de'
@@ -25,7 +24,7 @@ func main() {
 	Speak 'thank you'
 	Exit
 	Step billProc
-	Speak 'your zhangdan'+$amount
+	Speak 'your zhangdan'+ $amount
 	Exit
 	Step silenceProc
 	Speak 'I can not Listen'
@@ -42,8 +41,7 @@ func main() {
 	program := p.ParserProgram()
 	env := object.NewEnvironment() //每次新建一个环境
 	env.Set("name", "evpeople")
-	gdf := parser.STEPINDEX
-	println(gdf)
+	env.Set("amount", "1000")
 	// Eval(program, env).(*object.String).Value
 	evaluator.Eval(program, env)
 	// evEval2(program, env)
