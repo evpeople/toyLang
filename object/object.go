@@ -15,6 +15,7 @@ const (
 	STRING_OBJ       = "STRING"
 )
 
+//Inspect 方法用于提供一个通用的获取对象内部信息的方法
 type Object interface {
 	Type() ObjectType
 	Inspect() string
