@@ -1,3 +1,4 @@
+//Parser 是语法分析包，用于将Token构成一棵树，采用的是递归下降分析
 package parser
 
 import (
@@ -7,8 +8,10 @@ import (
 	"fmt"
 )
 
-var STEPINDEX map[string]int
+//STEP_INDEX用于构造一个每一个STEP与自己序号的对应，从而能以O(1)的复杂度从STEP名字查找到STEP所拥有的语句，实现语句间的跳转
+var STEP_INDEX map[string]int
 
+//Parser 通过Lexer及其提供的NextToken函数，不断的构造语法树
 type Parser struct {
 	l         *lexer.Lexer
 	errors    []string
@@ -16,6 +19,7 @@ type Parser struct {
 	peekToken token.Token
 }
 
+//New 用于构造一个Parser并初始化当前token和下一个token的位置
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l, errors: []string{}}
 	p.nextToken()
@@ -28,6 +32,7 @@ func (p *Parser) nextToken() {
 	p.peekToken = p.l.NextToken()
 }
 
+//ParserProgram用于分析token生成一个Step的序列，序列中的每一个Step由包含着自己所拥有的所有动作
 func (p *Parser) ParserProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = []ast.Statement{}
@@ -46,10 +51,11 @@ func (p *Parser) parseStatement(index int) ast.Statement {
 	switch p.curToken.Type {
 	case token.STEP:
 		a := p.parseStepStatement()
-		if STEPINDEX == nil {
-			STEPINDEX = make(map[string]int)
+		//当该还没有构建STEP——INDEX对应表的时候，构造这个表，构造过后，向其中填入相应的值
+		if STEP_INDEX == nil {
+			STEP_INDEX = make(map[string]int)
 		}
-		STEPINDEX[a.Name.TokenLiteral()] = index
+		STEP_INDEX[a.Name.TokenLiteral()] = index
 		return a
 	case token.SPEAK:
 		return p.parseSpeakStatement()
@@ -78,12 +84,13 @@ func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
 	stmt.Expression = p.parseSilence()
 	return stmt
 }
-func (p *Parser) parseDefaultStatement() *ast.DefaultStatement {
 
-	stmt := &ast.DefaultStatement{Token: p.curToken}
-	stmt.Expression = p.parseSilence()
-	return stmt
-}
+// func (p *Parser) parseDefaultStatement() *ast.DefaultStatement {
+
+// 	stmt := &ast.DefaultStatement{Token: p.curToken}
+// 	stmt.Expression = p.parseSilence()
+// 	return stmt
+// }
 func (p *Parser) parseSilence() *ast.SilenceBranch {
 	stmt := &ast.SilenceBranch{}
 	if p.expectPeek(token.IDENT) {
@@ -169,11 +176,13 @@ func (p *Parser) parseStepStatement() *ast.StepStatement {
 	name := &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 	stmt.Name = name
 	i := 0
+	//此处用于在Step自己拥有的语句序列中，填充相应语句
 	for !p.curTokenIs(token.STEP) && !p.curTokenIs(token.EOF) {
 		ostmt := p.parseStatement(-1)
 
 		if ostmt != nil {
 			stmt.ALLStatement = append(stmt.ALLStatement, ostmt)
+			//并添加语句的跳转条件。
 			if stmt.CaseBranch == nil {
 				stmt.CaseBranch = make(map[string]string)
 			}
@@ -214,10 +223,11 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 		return false
 	}
 }
-func checkError(p *Parser) {
-	if len(p.errors) != 0 {
-		for _, v := range p.errors {
-			fmt.Println(v)
-		}
-	}
-}
+
+// func checkError(p *Parser) {
+// 	if len(p.errors) != 0 {
+// 		for _, v := range p.errors {
+// 			fmt.Println(v)
+// 		}
+// 	}
+// }

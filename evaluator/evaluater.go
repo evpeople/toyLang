@@ -107,7 +107,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 			temp2 = temp[:index]
 			result.(*object.String).Value = temp2
 			temp3 := statement.(*ast.StepStatement).GetBranch(temp2)
-			temp4 := parser.STEPINDEX[temp3]
+			temp4 := parser.STEP_INDEX[temp3]
 			i = temp4 - 1
 		}
 	}
