@@ -43,6 +43,8 @@ type StepStatement struct {
 
 func (SS *StepStatement) statementNode()       {}
 func (SS *StepStatement) TokenLiteral() string { return SS.Token.Literal }
+
+//用于获取输入对应的Branch，并在不能匹配成功的时候返回Default
 func (SS *StepStatement) GetBranch(a string) string {
 	temp, ok := SS.CaseBranch[a]
 	if ok {
@@ -85,14 +87,14 @@ func (st *SentenceStatement) RealTokenLiteral() string {
 	for i := 0; i < len(st.Value); i++ {
 		if st.Value[i] == '$' {
 			s := st.Value[0:i]
-			t, index := st.readmap(i + 1)
+			t, index := st.readMap(i + 1)
 			st.Value = s + " " + t + st.Value[index:len(st.Value)]
 			i = index
 		}
 	}
 	return st.Value
 }
-func (st *SentenceStatement) readmap(index int) (string, int) {
+func (st *SentenceStatement) readMap(index int) (string, int) {
 	var s string
 	i := index
 	for ; i < len(st.Value) && st.Value[i] != ' '; i++ {

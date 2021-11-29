@@ -9,6 +9,7 @@ type Token struct {
 	Literal string
 }
 
+//所有的Token的类型
 const (
 	STRING  = "STRING"
 	EOF     = "EOF"

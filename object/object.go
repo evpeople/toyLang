@@ -6,6 +6,7 @@ import (
 
 type ObjectType string
 
+//所有的返回值的类型
 const (
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"

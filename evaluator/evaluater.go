@@ -51,19 +51,18 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	}
 	b, _ := strconv.Atoi(begin)
 	e, _ := strconv.Atoi(end)
-	time.Sleep(time.Duration(b) * 2 * time.Second)
+	time.Sleep(time.Duration(b) * time.Second)
 	fmt.Println("请输入答案")
-	a := bufio.NewScanner(os.Stdin)
-	a.Scan()
-	ans := a.Text()
+	scan := bufio.NewScanner(os.Stdin)
+	scan.Scan()
+	ans := scan.Text()
 	if ans == "s" {
 		ans = "ListenSilence"
+		time.Sleep(time.Duration(e) * time.Second)
 	} else {
 		ans = "Listen" + ans
 	}
 	result.Value = ans
-
-	time.Sleep(time.Duration(e) * time.Second)
 	return &result
 }
 
@@ -94,23 +93,21 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		statement := program.Statements[i]
 		result = Eval(statement, env)
 		temp := result.Inspect()
-		var temp2 string
+		// var temp2 string
 
 		if index := strings.Index(temp, "Exit"); index != -1 {
 			return result
 		}
 		if strings.HasPrefix(temp, "Listen") {
-			temp2 = temp[6:]
-			result.(*object.String).Value = temp2
+			result.(*object.String).Value = temp[6:]
 			return result
 		}
 
 		if index := strings.Index(temp, "Step"); index != -1 {
-			temp2 = temp[:index]
-			result.(*object.String).Value = temp2
-			temp3 := statement.(*ast.StepStatement).GetBranch(temp2)
-			temp4 := parser.STEP_INDEX[temp3]
-			i = temp4 - 1
+			result.(*object.String).Value = temp[:index]
+			temp := statement.(*ast.StepStatement).GetBranch(temp)
+			index := parser.STEP_INDEX[temp]
+			i = index - 1
 		}
 	}
 	return result

@@ -212,6 +212,8 @@ func (p *Parser) peekError(t token.TokenType) {
 		t, p.peekToken.Type)
 	p.errors = append(p.errors, msg)
 }
+
+//用于对外提供分析出的错误
 func (p *Parser) Errors() []string {
 	return p.errors
 }

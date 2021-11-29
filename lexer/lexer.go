@@ -3,6 +3,7 @@ package lexer
 
 import "evpeople/toyLang/token"
 
+//Lexer因为需要提供给Parser使用，所以是可导出的类型，但内部值都是不可导出的
 type Lexer struct {
 	input        string
 	position     int  // current position in input (points to current char) 当前位置
@@ -10,6 +11,7 @@ type Lexer struct {
 	ch           byte // current char under examination
 }
 
+//通过输入的DSL程序，形成一个Lexer
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar() //初始化l 的其他变量
@@ -26,6 +28,7 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
+//提供给Parser获取下一个Token
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 	l.skipWhitespace() //只是读到之后就丢弃，不是预先除去所有的whitespace
@@ -100,10 +103,10 @@ func (l *Lexer) skipWhitespace() {
 }
 
 //与readchar相同，但是不移动当前指针的位置
-func (l *Lexer) peekChar() byte {
-	if l.readPosition >= len(l.input) {
-		return 0
-	} else {
-		return l.input[l.readPosition]
-	}
-}
+// func (l *Lexer) peekChar() byte {
+// 	if l.readPosition >= len(l.input) {
+// 		return 0
+// 	} else {
+// 		return l.input[l.readPosition]
+// 	}
+// }
