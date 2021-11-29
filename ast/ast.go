@@ -1,7 +1,9 @@
 //Ast提供了抽象语法树节点的鸭子类型的定义
 package ast
 
-import "evpeople/toyLang/token"
+import (
+	"evpeople/toyLang/token"
+)
 
 //Node是所有的节点共有的类型
 type Node interface {
@@ -82,11 +84,12 @@ func (st *SentenceStatement) expressionNode() {
 func (st *SentenceStatement) TokenLiteral() string {
 	return st.Token.Literal
 }
-func (st *SentenceStatement) RealTokenLiteral() string {
+func (st SentenceStatement) RealTokenLiteral() string {
 	// var s string
 	for i := 0; i < len(st.Value); i++ {
 		if st.Value[i] == '$' {
 			s := st.Value[0:i]
+			// s = strings.TrimSpace(s)
 			t, index := st.readMap(i + 1)
 			st.Value = s + " " + t + st.Value[index:len(st.Value)]
 			i = index
@@ -94,7 +97,7 @@ func (st *SentenceStatement) RealTokenLiteral() string {
 	}
 	return st.Value
 }
-func (st *SentenceStatement) readMap(index int) (string, int) {
+func (st SentenceStatement) readMap(index int) (string, int) {
 	var s string
 	i := index
 	for ; i < len(st.Value) && st.Value[i] != ' '; i++ {
