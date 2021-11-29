@@ -16,7 +16,6 @@ func TestEvalExit(t *testing.T) {
 	}
 	for _, tt := range tests {
 		evaluated := testEvalExit(tt.input)
-		// testIntegerObject(t, evaluated, tt.expected)
 		if evaluated {
 			t.Errorf("exit is not false. got=%T (%+v)", evaluated, evaluated)
 		}
@@ -53,10 +52,8 @@ func testEvalSpeak(input string) string {
 	program := p.ParserProgram()
 	env := object.NewEnvironment() //每次新建一个环境
 	env.Set("name", "evpeople")
-	// Eval(program, env).(*object.String).Value
 
 	return Eval(program, env).Inspect()
-	// return Eval(program, env).(*object.String).Value
 }
 
 // func TestEvalListen(t *testing.T) {

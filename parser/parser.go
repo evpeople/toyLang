@@ -9,8 +9,6 @@ import (
 
 var STEPINDEX map[string]int
 
-// var DEFAULT string
-
 type Parser struct {
 	l         *lexer.Lexer
 	errors    []string
@@ -119,14 +117,12 @@ func (p *Parser) parseListenStatement() *ast.ListenStatement {
 	stmt := &ast.ListenStatement{Token: p.curToken}
 	stmt.Expression = p.parseListenTime()
 	p.errors = nil
-	//TODO:处理error重复报出的问题
 	return stmt
 }
 func (p *Parser) parseSpeakStatement() *ast.SpeakStatement {
 	stmt := &ast.SpeakStatement{Token: p.curToken}
 	stmt.Expression = p.parseSentence()
 	p.errors = nil
-	//TODO:处理error重复报出的问题
 	return stmt
 }
 func (p *Parser) parseListenTime() *ast.ListenTime {
@@ -163,12 +159,6 @@ func (p *Parser) parseSentence() *ast.SentenceStatement {
 			p.nextToken()
 			dollarMap[p.curToken.Literal] = ""
 		}
-		//TODO: 先处理没有dollar的情况，然后再处理有dollar的情况。
-		//TODO: 没有dollar的情况下，就是switch (string) (plus) 然后得出结果，返回一个ast
-		//TODO: 不算单纯的parse，但是可能算是优化过了
-		//TODO：还是相当于对每次连接做一个新的AST了，
-		//TODO: 把这段结合在一起，原本的也是应该算在eval中，所以抄一下书的String的前部分。
-
 	}
 	stmt := &ast.SentenceStatement{Token: token.Token{Type: token.STRING, Literal: st}, Value: st, DollarMap: dollarMap}
 	return stmt
@@ -179,7 +169,6 @@ func (p *Parser) parseStepStatement() *ast.StepStatement {
 	name := &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 	stmt.Name = name
 	i := 0
-	//TODO:需要用这个i,算出silence可能。
 	for !p.curTokenIs(token.STEP) && !p.curTokenIs(token.EOF) {
 		ostmt := p.parseStatement(-1)
 
