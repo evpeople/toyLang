@@ -1,3 +1,4 @@
+//Lexer 用于词法分析
 package lexer
 
 import "evpeople/toyLang/token"
