@@ -146,7 +146,8 @@ func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Obje
 	return &result
 }
 func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object {
-	var result object.Boolean
+	var result object.String
+	result.Value = "Exit"
 	return &result
 }
 
@@ -198,6 +199,10 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		result = Eval(statement, env)
 		temp := result.Inspect()
 		var temp2 string
+
+		if index := strings.Index(temp, "Exit"); index != -1 {
+			return result
+		}
 		if index := strings.Index(temp, "Listen"); index != -1 {
 			temp2 = temp[6:]
 			result.(*object.String).Value = temp2
