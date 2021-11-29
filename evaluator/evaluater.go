@@ -110,6 +110,7 @@ func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Obje
 		}
 		result.Value = program.Expression.(*ast.SentenceStatement).RealTokenLiteral()
 	}
+	fmt.Println(result.Value)
 	return &result
 }
 func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object {
