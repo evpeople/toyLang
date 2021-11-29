@@ -1,21 +1,26 @@
+//Ast提供了抽象语法树节点的鸭子类型的定义
 package ast
 
 import "evpeople/toyLang/token"
 
+//Node是所有的节点共有的类型
 type Node interface {
 	TokenLiteral() string
 }
 
+//Statement是可执行的语句，如Speak和Listen
 type Statement interface {
 	Node
 	statementNode()
 }
 
+//Expression是表意的语句，不能执行，但是说明了其他语句怎么执行
 type Expression interface { //表达式 比如 Branch "3.4"
 	Node
 	expressionNode()
 }
 
+//Program是DSL生成的程序实际构造出的对象
 type Program struct {
 	Statements []Statement
 }
@@ -28,6 +33,7 @@ func (p *Program) TokenLiteral() string {
 	}
 }
 
+//StepStatement是每一个Step所构造出的对象，在AllStatement里存放所有的语句，在CaseBranch里存储不同的输入所对应跳转对象
 type StepStatement struct {
 	Token        token.Token
 	Name         *Identifier
@@ -62,6 +68,7 @@ type SpeakStatement struct {
 func (SS *SpeakStatement) statementNode()       {}
 func (SS *SpeakStatement) TokenLiteral() string { return SS.Token.Literal }
 
+//SentenceStatement用于在生成的过程中，保存了一个DollarMap，用于在不同的用户执行的时候，从不同的environment中取值，具体流程是，发现一个语句有不为空的DollarMap时，遍历DollarMap，并在Environment中取相应的键，填充DollarMap的值，最后通过RealLiteral返回结果
 type SentenceStatement struct {
 	Token     token.Token //理论上是string
 	Value     string      //通过拼接 + 和$ 得出的结果
@@ -113,9 +120,7 @@ type ListenTime struct {
 	Last  string
 }
 
-func (lt *ListenTime) expressionNode() {
-	return
-}
+func (lt *ListenTime) expressionNode() {}
 func (lt *ListenTime) TokenLiteral() string {
 	return "Start is " + lt.Start + "\nEnd is " + lt.Last
 }
