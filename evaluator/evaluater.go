@@ -1,3 +1,4 @@
+//Evaluate是实际解释执行的代码所在的包
 package evaluator
 
 import (
@@ -12,6 +13,7 @@ import (
 	"time"
 )
 
+//Eval函数是实际执行的函数，为不同节点调用不同的执行方法，main函数调用其来执行Step节点的集合，evalProgram函数调用其来遍历Step节点自身所拥有的语句们
 func Eval(node ast.Node, env *object.Environment) object.Object {
 	switch node := node.(type) {
 	case *ast.Program:
