@@ -37,6 +37,14 @@ type StepStatement struct {
 
 func (SS *StepStatement) statementNode()       {}
 func (SS *StepStatement) TokenLiteral() string { return SS.Token.Literal }
+func (SS *StepStatement) GetBranch(a string) string {
+	temp, ok := SS.CaseBranch[a]
+	if ok {
+		return temp
+	} else {
+		return SS.CaseBranch["Default"]
+	}
+}
 
 type Identifier struct {
 	Token token.Token
