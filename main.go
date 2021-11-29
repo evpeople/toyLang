@@ -10,28 +10,33 @@ import (
 func main() {
 	input := `
 	Step welcome
-	Speak $name + ' happy'+'world'
+	Speak $name + ' hello'+' world, do you want to tousu or zhangdan'
 	Listen 2,3
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
 	Silence silenceProc
 	Default defaultProc
+	
 	Step complainProc
-	Speak 'ni de yi jian shi wo men de'
+	Speak 'I am tousu complainProc'
 	Listen 2,4
 	Default thanks
+	
 	Step thanks
-	Speak 'thank you'
+	Speak 'I am thanks thank you'
 	Exit
+	
 	Step billProc
-	Speak 'your zhangdan'+ $amount
+	Speak 'I am zhangdan billProc your zhangdan'+ $amount
 	Exit
+	
 	Step silenceProc
-	Speak 'I can not Listen'
+	Speak 'I am silence  I can not listen'
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
 	Silence silenceProc
 	Default defaultProc
+	
 	Step defaultProc
 	Speak 'I am defautProc'
 	Exit
