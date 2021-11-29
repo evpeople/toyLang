@@ -2,12 +2,14 @@
 package evaluator
 
 import (
+	"errors"
 	"evpeople/toyLang/ast"
 	"evpeople/toyLang/object"
 	"evpeople/toyLang/parser"
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -68,9 +70,16 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	time.Sleep(time.Duration(b) * time.Second)
 	fmt.Println("请输入答案")
 	conn.Write([]byte("\n请输入答案\n"))
+	conn.SetReadDeadline(time.Now().Add(time.Duration(e) * time.Second))
 	temp := make([]byte, 20)
-	length, _ := conn.Read(temp)
-	ans := string(temp[:length])
+	length, err := conn.Read(temp)
+	var ans string
+	if errors.Is(err, os.ErrDeadlineExceeded) {
+		ans = "silenceS"
+	} else {
+		ans = string(temp[:length])
+	}
+	conn.SetReadDeadline(time.Time{})
 	// scan := bufio.NewScanner(os.Stdin)
 	// scan.Scan()
 	// ans := scan.Text()
