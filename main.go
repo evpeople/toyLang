@@ -32,6 +32,7 @@ func main() {
 	
 	Step silenceProc
 	Speak 'I am silence  I can not listen'
+	Listen 2,4
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
 	Silence silenceProc
