@@ -80,7 +80,7 @@ func (l *Lexer) readIdentifier() string {
 }
 func (l *Lexer) readString() string {
 	position := l.position
-	for isLetter(l.ch) || l.ch == ' ' {
+	for isLetter(l.ch) || l.ch == ' ' || l.ch == ',' {
 		l.readChar()
 	}
 	return l.input[position:l.position]

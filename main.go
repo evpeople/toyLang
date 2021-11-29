@@ -10,7 +10,7 @@ import (
 func main() {
 	input := `
 	Step welcome
-	Speak $name + ' hello'+' world do you want to tousu or zhangdan'
+	Speak $name + ' hello'+' ,world do you want to tousu or zhangdan'
 	Listen 2,3
 	Branch 'tousu',complainProc
 	Branch 'zhangdan',billProc
