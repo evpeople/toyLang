@@ -203,7 +203,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		if index := strings.Index(temp, "Exit"); index != -1 {
 			return result
 		}
-		if index := strings.Index(temp, "Listen"); index != -1 {
+		if strings.HasPrefix(temp, "Listen") {
 			temp2 = temp[6:]
 			result.(*object.String).Value = temp2
 			return result
