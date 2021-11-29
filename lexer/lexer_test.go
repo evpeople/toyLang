@@ -8,7 +8,7 @@ import (
 func TestNextToken(t *testing.T) {
 	input := `
 	Step welcome
-	Speak $name + 'hello'
+	Speak $name + 'hello,people'
 	Listen 5,20
 	Branch 'not good', cProc
 	Exit
@@ -23,7 +23,7 @@ func TestNextToken(t *testing.T) {
 		{token.DOLLAR, "$"},
 		{token.IDENT, "name"},
 		{token.PLUS, "+"},
-		{token.STRING, "hello"},
+		{token.STRING, "hello,people"},
 		{token.LISTEN, "Listen"},
 		{token.NUM, "5"},
 		{token.COMMA, ","},
