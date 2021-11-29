@@ -1,13 +1,14 @@
+//Package token 包含了文法中所用的所有token类型
 package token
 
 type TokenType string
+
+//Token 的Type用于存储类型，Literal是类似于String的Token中实际存储的内容
 type Token struct {
 	Type    TokenType
 	Literal string
 }
 
-//TODO: 完成变量在运行前的读取，一个env的包
-//TODO: Speak 'Speak'的测试
 const (
 	STRING  = "STRING"
 	EOF     = "EOF"
@@ -37,6 +38,7 @@ var keywords = map[string]TokenType{
 	"+":       PLUS,
 }
 
+//LookupIdent 函数以一个文法分析读取到的字符串作为参数，然后在Token包内置的一个keyword字典中进行检索，若能检索到，则此字符串是一个关键字，不能检索到，则字符串是一个标识符
 func LookupIdent(ident string) TokenType {
 	if tok, ok := keywords[ident]; ok {
 		return tok
