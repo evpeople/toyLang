@@ -61,43 +61,75 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	}
 	b, _ := strconv.Atoi(begin)
 	e, _ := strconv.Atoi(end)
-	time.Sleep(time.Duration(b) * 1 * time.Second)
-	c := make(chan string)
-
-	go func() {
-		bf := time.Now()
-		fmt.Println("请输入答案")
-		a := bufio.NewScanner(os.Stdin)
-
-		var ans string
-		for a.Scan() {
-			if time.Since(bf) > time.Duration(5)*time.Second {
-				// fmt.Println("chao shi")
-				break
-			}
-			ans += a.Text()
-			fmt.Println(ans, time.Since(bf))
-			c <- ans
-		}
-		// fmt.Scanln(&ans)
-	}()
-
-	select {
-	case m := <-c:
-		result.Value = "Listen" + m
-		handle(m)
-	case <-time.After(5 * time.Second * time.Duration(e)):
-		result.Value = "Listen" + "Silence"
-		handle("time out")
-	}
-	close(c)
-
 	time.Sleep(time.Duration(b) * 2 * time.Second)
+	fmt.Println("请输入答案")
+	a := bufio.NewScanner(os.Stdin)
+	a.Scan()
+	ans := a.Text()
+	// ans := "dasdasd"
+	if ans == "s" {
+		ans = "ListenSilence"
+	} else {
+		ans = "Listen" + ans
+	}
+	result.Value = ans
+	// print(ans)
+	// c := make(chan string)
+
+	// go func() {
+	// 	var ans string
+	// 	time.AfterFunc(time.Duration(e)*time.Second, func() {
+	// 		c <- "##"
+	// 	})
+	// 	a := bufio.NewScanner(os.Stdin)
+	// 	a.Scan()
+	// 	ans += a.Text()
+	// 	c <- ans
+	// 	temp, ok := <-c
+	// 	if ok {
+	// 		if strings.HasPrefix(temp, "##") {
+	// 			return
+	// 		}
+	// 		temp += ans
+	// 		c <- temp
+	// 	}
+
+	// 	// for a.Scan() {
+	// 	// 	if time.Since(bf) > time.Duration(5)*time.Second {
+	// 	// 		// fmt.Println("chao shi")
+	// 	// 		break
+	// 	// 	}
+	// 	// 	ans += a.Text()
+	// 	// 	fmt.Println(ans, time.Since(bf))
+	// 	// 	c <- ans
+	// 	// }
+	// 	// fmt.Scanln(&ans)
+	// }()
+
+	// select {
+	// case m := <-c:
+	// 	if strings.HasPrefix(m, "##") {
+	// 		result.Value = "ListenSilence"
+	// 		close(c)
+	// 		break
+	// 	}
+	// 	result.Value = "Listen" + m
+	// 	handle(m)
+	// 	close(c)
+	// 	break
+	// case <-time.After(5 * time.Second * time.Duration(e)):
+	// 	result.Value = "Listen" + "Silence"
+	// 	handle("time out")
+	// }
+	// // close(c)
+
+	time.Sleep(time.Duration(e) * time.Second)
 	return &result
 }
-func handle(m string) {
-	fmt.Println(m)
-}
+
+// func handle(m string) {
+// 	fmt.Println(m)
+// }
 func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Object {
 	var result object.String
 	if program.Expression.(*ast.SentenceStatement).DollarMap == nil {
@@ -175,8 +207,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		if index := strings.Index(temp, "Step"); index != -1 {
 			temp2 = temp[:index]
 			result.(*object.String).Value = temp2
-			temp2 = "tousu"
-			temp3 := statement.(*ast.StepStatement).CaseBranch[temp2]
+			temp3 := statement.(*ast.StepStatement).GetBranch(temp2)
 			temp4 := parser.STEPINDEX[temp3]
 			i = temp4 - 1
 			// i = 4
