@@ -1,10 +1,12 @@
 package evaluator
 
 import (
+	"bufio"
 	"evpeople/toyLang/ast"
 	"evpeople/toyLang/object"
 	"evpeople/toyLang/parser"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 
@@ -61,12 +63,25 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	e, _ := strconv.Atoi(end)
 	time.Sleep(time.Duration(b) * 1 * time.Second)
 	c := make(chan string)
+
 	go func() {
+		bf := time.Now()
 		fmt.Println("请输入答案")
+		a := bufio.NewScanner(os.Stdin)
+
 		var ans string
-		fmt.Scanln(&ans)
-		c <- ans
+		for a.Scan() {
+			if time.Since(bf) > time.Duration(5)*time.Second {
+				// fmt.Println("chao shi")
+				break
+			}
+			ans += a.Text()
+			fmt.Println(ans, time.Since(bf))
+			c <- ans
+		}
+		// fmt.Scanln(&ans)
 	}()
+
 	select {
 	case m := <-c:
 		result.Value = "Listen" + m
@@ -76,6 +91,8 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 		handle("time out")
 	}
 	close(c)
+
+	time.Sleep(time.Duration(b) * 2 * time.Second)
 	return &result
 }
 func handle(m string) {
@@ -161,7 +178,7 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 			temp3 := statement.(*ast.StepStatement).CaseBranch[temp2]
 			temp4 := parser.STEPINDEX[temp3]
 			i = temp4 - 1
-			i = 4
+			// i = 4
 			// return result
 		}
 	}
