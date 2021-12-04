@@ -44,16 +44,6 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 }
 func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 
-	id, ok := env.Get("ID")
-	if !ok {
-		log.Fatal("can't find right ID")
-	}
-	idNum, err := strconv.Atoi(id)
-	if err != nil {
-		log.Fatal("can't find convert ID")
-	}
-	conn := Eval_Conn[idNum]
-
 	var result object.String
 	s := p.Expression.TokenLiteral()
 	begin := ""
@@ -68,18 +58,9 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	b, _ := strconv.Atoi(begin)
 	e, _ := strconv.Atoi(end)
 	time.Sleep(time.Duration(b) * time.Second)
-	fmt.Println("请输入答案")
-	conn.Write([]byte("\n请输入答案\n"))
-	conn.SetReadDeadline(time.Now().Add(time.Duration(e) * time.Second))
-	temp := make([]byte, 20)
-	length, err := conn.Read(temp)
-	var ans string
-	if errors.Is(err, os.ErrDeadlineExceeded) {
-		ans = "silenceS"
-	} else {
-		ans = string(temp[:length])
-	}
-	conn.SetReadDeadline(time.Time{})
+
+	ans := sendMessageWithTimeOut("\n请输入答案\n", env, e)
+
 	// scan := bufio.NewScanner(os.Stdin)
 	// scan.Scan()
 	// ans := scan.Text()
@@ -89,7 +70,7 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	fmt.Println(strings.HasPrefix(ans, "silence"))
 	if strings.HasPrefix(ans, "silence") {
 		ans = "ListenSilence"
-		time.Sleep(time.Duration(e) * time.Second)
+		// time.Sleep(time.Duration(e) * time.Second)
 	} else {
 		ans = "Listen" + ans
 		ans = strings.ReplaceAll(ans, "\r\n", "")
@@ -111,25 +92,14 @@ func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Obje
 		}
 		result.Value = program.Expression.(*ast.SentenceStatement).RealTokenLiteral()
 	}
-
-	id, ok := env.Get("ID")
-	if !ok {
-		log.Fatal("can't find right ID")
-	}
-	idNum, err := strconv.Atoi(id)
-	if err != nil {
-		log.Fatal("can't find convert ID")
-	}
-	conn := Eval_Conn[idNum]
-	result.Value = strings.ReplaceAll(result.Value, "\n", "")
-	conn.Write([]byte(result.Value + "\n"))
-	fmt.Println(result.Value)
+	result.Value = sendMessage(result.Value, env)
 	return &result
 }
 func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object {
 	var result object.String
 	result.Value = "Exit"
 	time.Sleep(time.Duration(4) * time.Second)
+	sendMessage("欢迎下次使用", env)
 	return &result
 }
 
@@ -157,4 +127,44 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		}
 	}
 	return result
+}
+func sendMessage(s string, env *object.Environment) string {
+	id, ok := env.Get("ID")
+	if !ok {
+		log.Fatal("can't find right ID")
+	}
+	idNum, err := strconv.Atoi(id)
+	if err != nil {
+		log.Fatal("can't find convert ID")
+	}
+	conn := Eval_Conn[idNum]
+	s = strings.ReplaceAll(s, "\n", "")
+	conn.Write([]byte(s + "\n"))
+	fmt.Println(s)
+	return s
+}
+func sendMessageWithTimeOut(s string, env *object.Environment, e int) string {
+	id, ok := env.Get("ID")
+	if !ok {
+		log.Fatal("can't find right ID")
+	}
+	idNum, err := strconv.Atoi(id)
+	if err != nil {
+		log.Fatal("can't find convert ID")
+	}
+	conn := Eval_Conn[idNum]
+	// fmt.Println("请输入答案")
+	// conn.Write([]byte("\n请输入答案\n"))
+	// sendMessage("\n请输入答案\n", env)
+	conn.SetReadDeadline(time.Now().Add(time.Duration(e) * time.Second))
+	temp := make([]byte, 20)
+	length, err := conn.Read(temp)
+	var ans string
+	if errors.Is(err, os.ErrDeadlineExceeded) {
+		ans = "silenceS"
+	} else {
+		ans = string(temp[:length])
+	}
+	conn.SetReadDeadline(time.Time{})
+	return ans
 }
