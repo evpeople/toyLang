@@ -6,54 +6,35 @@ import (
 	"evpeople/toyLang/lexer"
 	"evpeople/toyLang/object"
 	"evpeople/toyLang/parser"
+	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 	"strconv"
 	"strings"
 )
 
+var port, file string
+
+func init() {
+	flag.StringVar(&port, "port", "20000", "默认采用端口是20000")
+	flag.StringVar(&file, "file", "test.Toy", "默认使用的文件时test.Toy")
+}
 func main() {
-	input := `
-	Step welcome
-	Speak 'heloo'+$name  +' ,world do you want to tousu '+ 'asb' +'zhangdan Listen'+$name
-	Listen 2,3
-	Branch 'tousu',complainProc
-	Branch 'zhangdan',billProc
-	Silence silenceProc
-	Default defaultProc
-	
-	Step complainProc
-	Speak 'I am tousu complainProc'
-	Listen 2,4
-	Default thanks
-	
-	Step thanks
-	Speak 'I am thanks thank you'
-	Exit
-	
-	Step billProc
-	Speak 'I am zhangdan billProc your zhangdan'+ $amount
-	Exit
-	
-	Step silenceProc
-	Speak 'I am silence  I can not listen'
-	Listen 2,4
-	Branch 'tousu',complainProc
-	Branch 'zhangdan',billProc
-	Silence silenceProc
-	Default defaultProc
-	
-	Step defaultProc
-	Speak 'I am defautProc'
-	Exit
-	`
+	// os.Open("./test.Toy")
+	flag.Parse()
+	content, err := ioutil.ReadFile(file)
+	if err != nil {
+		log.Fatalln("open file failed,err:", err)
+	}
+	input := string(content)
 	l := lexer.New(input)
 	p := parser.New(l)
 	program := p.ParserProgram()
 	id := 0
 	evaluator.Eval_Conn = make(map[int]net.Conn)
-	listen, err := net.Listen("tcp", "0.0.0.0:20000")
+	listen, err := net.Listen("tcp", "0.0.0.0:"+port)
 	if err != nil {
 		fmt.Println("listen failed, err:", err)
 		return
