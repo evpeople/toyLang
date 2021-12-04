@@ -1,7 +1,9 @@
 //Lexer 用于词法分析
 package lexer
 
-import "evpeople/toyLang/token"
+import (
+	"evpeople/toyLang/token"
+)
 
 //Lexer因为需要提供给Parser使用，所以是可导出的类型，但内部值都是不可导出的
 type Lexer struct {
@@ -84,11 +86,30 @@ func (l *Lexer) readIdentifier() string {
 }
 func (l *Lexer) readString() string {
 	position := l.position
-	for isLetter(l.ch) || l.ch == ' ' || l.ch == ',' {
-		l.readChar()
+	// for isLetter(l.ch) || l.ch == ' ' || l.ch == ',' {
+	// 	l.readChar()
+	// }
+	var d int
+	for k, v := range l.input[l.readPosition-1:] {
+		if v != '\'' {
+			// if isLang(v) {
+			// 	d += 2
+			// } else {
+			// 	d += 1
+			// }
+		} else {
+			d = k
+			break
+		}
 	}
+	l.position = l.position + d
+	l.readPosition = l.position + 1
 	return l.input[position:l.position]
 }
+
+// func isLang(ch rune) bool {
+// 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || unicode.Is(unicode.Scripts["Han"], ch)
+// }
 func isLetter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
