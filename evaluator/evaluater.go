@@ -61,20 +61,11 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 
 	ans := sendMessageWithTimeOut("\n请输入答案\n", env, e)
 
-	// scan := bufio.NewScanner(os.Stdin)
-	// scan.Scan()
-	// ans := scan.Text()
-	// ans = strings.TrimSpace(ans)
-	// println(ans)
-	// ans = "tousu"
-	fmt.Println(strings.HasPrefix(ans, "silence"))
 	if strings.HasPrefix(ans, "silence") {
 		ans = "ListenSilence"
-		// time.Sleep(time.Duration(e) * time.Second)
 	} else {
 		ans = "Listen" + ans
 		ans = strings.ReplaceAll(ans, "\r\n", "")
-		fmt.Print(ans)
 	}
 	result.Value = ans
 	return &result
@@ -98,7 +89,7 @@ func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Obje
 func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object {
 	var result object.String
 	result.Value = "Exit"
-	time.Sleep(time.Duration(4) * time.Second)
+	time.Sleep(time.Duration(1) * time.Second)
 	sendMessage("欢迎下次使用", env)
 	return &result
 }
@@ -109,18 +100,17 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		statement := program.Statements[i]
 		result = Eval(statement, env)
 		temp := result.Inspect()
-		// var temp2 string
 
 		if index := strings.Index(temp, "Exit"); index != -1 {
 			return result
 		}
 		if strings.HasPrefix(temp, "Listen") {
 			result.(*object.String).Value = temp[6:]
+			fmt.Println(result.Inspect())
 			return result
 		}
 
 		if index := strings.Index(temp, "Step"); index != -1 {
-			// result.(*object.String).Value = temp[:index]
 			temp := statement.(*ast.StepStatement).GetBranch(temp[:index])
 			index := parser.STEP_INDEX[temp]
 			i = index - 1
@@ -153,9 +143,6 @@ func sendMessageWithTimeOut(s string, env *object.Environment, e int) string {
 		log.Fatal("can't find convert ID")
 	}
 	conn := Eval_Conn[idNum]
-	// fmt.Println("请输入答案")
-	// conn.Write([]byte("\n请输入答案\n"))
-	// sendMessage("\n请输入答案\n", env)
 	conn.SetReadDeadline(time.Now().Add(time.Duration(e) * time.Second))
 	temp := make([]byte, 20)
 	length, err := conn.Read(temp)

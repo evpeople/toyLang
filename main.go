@@ -22,7 +22,6 @@ func init() {
 	flag.StringVar(&file, "file", "test.Toy", "默认使用的文件时test.Toy")
 }
 func main() {
-	// os.Open("./test.Toy")
 	flag.Parse()
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
@@ -49,16 +48,11 @@ func main() {
 		go process(conn, program, id)
 		id++
 	}
-	// evEval2(program, env)
 }
 
 func process(conn net.Conn, program *ast.Program, id int) {
 	defer conn.Close()
-	// var program *ast.Program
-	// program.Statements = make([]ast.Statement, len(p.Statements))
-	// copy(program.Statements, p.Statements)
-	//TODO:考虑深拷贝
-	conn.Write([]byte("name "))
+	conn.Write([]byte("初始化，姓名："))
 	env := object.NewEnvironment()
 	env.Set("ID", strconv.Itoa(id))
 	b := make([]byte, 20)
@@ -67,15 +61,11 @@ func process(conn net.Conn, program *ast.Program, id int) {
 		log.Fatal(err)
 	}
 	env.Set("name", strings.TrimSpace(string(b[:length])))
-	conn.Write([]byte("amount "))
+	conn.Write([]byte("账单余额"))
 	length, err = conn.Read(b) //每次新建一个环境
 	if err != nil {
 		log.Fatal(err)
 	}
 	env.Set("amount", strings.TrimSpace(string(b[:length])))
-	// Eval(program, env).(*object.String).Value
-	// q, _ := env.Get("name")
-
-	// fmt.Printf("%s", []byte(q)[:len(q)-1])
 	evaluator.Eval(program, env)
 }

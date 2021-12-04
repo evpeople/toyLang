@@ -1,32 +1,38 @@
 Step welcome
-	Speak 'heloo'+$name  +' ,world do you want to tousu '+ 'asb' +'zhangdan Listen'+$name
+	Speak '你好'+$name  +' ,请问你想 投诉 '+ '还是' +'查看账单，投诉请发送 投诉 查看账单请发送 账单，离开请发送byebye'
 	Listen 2,3
-	Branch 'tousu',complainProc
-	Branch 'zhangdan',billProc
+	Branch '投诉',complainProc
+	Branch '账单',billProc
+	Branch 'byebye',thanks
 	Silence silenceProc
 	Default defaultProc
 	
 	Step complainProc
-	Speak '我是投诉的回复'
+	Speak '我是投诉的回复，请您讲'
 	Listen 2,4
-	Default thanks
+	Speak '您的投诉我已经记住了，谢谢'
+	Exit
 	
 	Step thanks
-	Speak 'I am thanks thank you'
+	Speak '感谢您的使用，再见'
 	Exit
 	
 	Step billProc
-	Speak 'I am zhangdan billProc your zhangdan'+ $amount
+	Speak '我是账单机器人，您的账单是'+ $amount
+	Listen 2,4
+	Branch '账单',billProc
 	Exit
 	
 	Step silenceProc
-	Speak 'I am silence  I can not listen'
+	Speak '您好，请您再说一遍'
 	Listen 2,4
-	Branch 'tousu',complainProc
-	Branch 'zhangdan',billProc
+	Branch '投诉',complainProc
+	Branch '账单',billProc
 	Silence silenceProc
 	Default defaultProc
 	
 	Step defaultProc
-	Speak 'I am defautProc'
+	Speak '我还不能理解'
+	Listen 2,3
+	Default silenceProc
 	Exit
