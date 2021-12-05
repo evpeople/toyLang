@@ -25,9 +25,7 @@ func init() {
 }
 func main() {
 	flag.Parse()
-	if flag.NFlag() != 2 {
-		fmt.Println("程序将以test.Toy作为输入，在20000端口启动")
-	}
+	fmt.Println("程序将以" + file + "作为输入，在" + port + "端口启动")
 
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
