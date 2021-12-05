@@ -2,6 +2,7 @@ package main
 
 import (
 	"evpeople/toyLang/ast"
+	"evpeople/toyLang/db"
 	"evpeople/toyLang/evaluator"
 	"evpeople/toyLang/lexer"
 	"evpeople/toyLang/object"
@@ -18,11 +19,16 @@ import (
 var port, file string
 
 func init() {
+	// flag.ContinueOnError
 	flag.StringVar(&port, "port", "20000", "默认采用端口是20000")
 	flag.StringVar(&file, "file", "test.Toy", "默认使用的文件时test.Toy")
 }
 func main() {
 	flag.Parse()
+	if flag.NFlag() != 2 {
+		fmt.Println("程序将以test.Toy作为输入，在20000端口启动")
+	}
+
 	content, err := ioutil.ReadFile(file)
 	if err != nil {
 		log.Fatalln("open file failed,err:", err)
@@ -52,20 +58,26 @@ func main() {
 
 func process(conn net.Conn, program *ast.Program, id int) {
 	defer conn.Close()
-	conn.Write([]byte("初始化，姓名："))
 	env := object.NewEnvironment()
 	env.Set("ID", strconv.Itoa(id))
-	b := make([]byte, 20)
-	length, err := conn.Read(b) //每次新建一个环境
-	if err != nil {
-		log.Fatal(err)
+	if id > len(db.Peoples)-1 {
+		conn.Write([]byte("初始化，姓名："))
+		b := make([]byte, 20)
+		length, err := conn.Read(b) //每次新建一个环境
+		if err != nil {
+			log.Fatal(err)
+		}
+		env.Set("name", strings.TrimSpace(string(b[:length])))
+		conn.Write([]byte("账单余额"))
+		length, err = conn.Read(b) //每次新建一个环境
+		if err != nil {
+			log.Fatal(err)
+		}
+		env.Set("amount", strings.TrimSpace(string(b[:length])))
+	} else {
+		env.Set("name", db.Peoples[id].Name)
+		env.Set("amount", db.Peoples[id].Amount)
 	}
-	env.Set("name", strings.TrimSpace(string(b[:length])))
-	conn.Write([]byte("账单余额"))
-	length, err = conn.Read(b) //每次新建一个环境
-	if err != nil {
-		log.Fatal(err)
-	}
-	env.Set("amount", strings.TrimSpace(string(b[:length])))
+
 	evaluator.Eval(program, env)
 }
