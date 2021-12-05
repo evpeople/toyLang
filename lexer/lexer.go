@@ -53,7 +53,7 @@ func (l *Lexer) NextToken() token.Token {
 	default:
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
-			tok.Type = token.LookupIdent(tok.Literal) //这里循环读取，得到单词
+			tok.Type = token.LookupIdent(tok.Literal) //检索是否为关键字
 			return tok
 		} else if isDigit(l.ch) {
 			tok.Type = token.NUM
@@ -86,17 +86,9 @@ func (l *Lexer) readIdentifier() string {
 }
 func (l *Lexer) readString() string {
 	position := l.position
-	// for isLetter(l.ch) || l.ch == ' ' || l.ch == ',' {
-	// 	l.readChar()
-	// }
 	var d int
 	for k, v := range l.input[l.readPosition-1:] {
 		if v != '\'' {
-			// if isLang(v) {
-			// 	d += 2
-			// } else {
-			// 	d += 1
-			// }
 		} else {
 			d = k
 			break
@@ -107,9 +99,6 @@ func (l *Lexer) readString() string {
 	return l.input[position:l.position]
 }
 
-// func isLang(ch rune) bool {
-// 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || unicode.Is(unicode.Scripts["Han"], ch)
-// }
 func isLetter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }

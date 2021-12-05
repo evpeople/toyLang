@@ -33,6 +33,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		temp := evalProgram(&ast.Program{Statements: node.ALLStatement}, env)
 		_, ok := temp.(*object.String)
 		if ok {
+			//包装返回值，用于给evalProgram判别
 			temp.(*object.String).Value += "Step"
 			return temp
 		} else {
@@ -45,6 +46,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 
 	var result object.String
+	//解析什么时候开始听，听多久
 	s := p.Expression.TokenLiteral()
 	begin := ""
 	for i := 9; s[i] != '\n'; i++ {
@@ -60,7 +62,7 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	time.Sleep(time.Duration(b) * time.Second)
 
 	ans := sendMessageWithTimeOut("\n请输入答案\n", env, e)
-
+	//对听到的结果进行包装，用于evalProgram
 	if strings.HasPrefix(ans, "silence") {
 		ans = "ListenSilence"
 	} else {
@@ -73,6 +75,7 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 
 func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Object {
 	var result object.String
+	//判断在语句中是否有$
 	if program.Expression.(*ast.SentenceStatement).DollarMap == nil {
 		result.Value = program.Expression.TokenLiteral()
 	} else {
@@ -97,6 +100,7 @@ func evalExit(program *ast.ExitStatement, env *object.Environment) object.Object
 func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 	var result object.Object
 	for i := 0; i < len(program.Statements); i++ {
+		//遍历一个Step的句子们
 		statement := program.Statements[i]
 		result = Eval(statement, env)
 		temp := result.Inspect()
@@ -111,13 +115,17 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		}
 
 		if index := strings.Index(temp, "Step"); index != -1 {
+			//根据Step解除包装后的结果，判断将要跳转到的语句
 			temp := statement.(*ast.StepStatement).GetBranch(temp[:index])
 			index := parser.STEP_INDEX[temp]
+			//重置i，进行跳转
 			i = index - 1
 		}
 	}
 	return result
 }
+
+//发送消息
 func sendMessage(s string, env *object.Environment) string {
 	id, ok := env.Get("ID")
 	if !ok {
@@ -133,6 +141,8 @@ func sendMessage(s string, env *object.Environment) string {
 	fmt.Println(s)
 	return s
 }
+
+//发送消息并设置等待时长
 func sendMessageWithTimeOut(s string, env *object.Environment, e int) string {
 	id, ok := env.Get("ID")
 	if !ok {

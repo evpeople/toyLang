@@ -24,7 +24,7 @@ Step welcome
 	Exit
 	
 	Step silenceProc
-	Speak '您好，请您再说一遍'
+	Speak '您好，请您再说一遍，投诉还是账单？'
 	Listen 2,4
 	Branch '投诉',complainProc
 	Branch '账单',billProc
