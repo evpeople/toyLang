@@ -147,7 +147,7 @@ func (p *Parser) parseListenTime() *ast.ListenTime {
 	stmt := &ast.ListenTime{Start: time[0], Last: time[1]}
 	return stmt
 }
-func (p *Parser) parseSentence() *ast.SentenceStatement {
+func (p *Parser) parseSentence() *ast.Sentence {
 	var st string
 	var dollarMap map[string]string
 	for p.expectPeek(token.STRING) || p.expectPeek(token.PLUS) || p.expectPeek(token.DOLLAR) {
@@ -167,7 +167,7 @@ func (p *Parser) parseSentence() *ast.SentenceStatement {
 			dollarMap[p.curToken.Literal] = ""
 		}
 	}
-	stmt := &ast.SentenceStatement{Token: token.Token{Type: token.STRING, Literal: st}, Value: st, DollarMap: dollarMap}
+	stmt := &ast.Sentence{Token: token.Token{Type: token.STRING, Literal: st}, Value: st, DollarMap: dollarMap}
 	return stmt
 }
 func (p *Parser) parseStepStatement() *ast.StepStatement {

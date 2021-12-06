@@ -76,15 +76,15 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 func evalSpeak(program *ast.SpeakStatement, env *object.Environment) object.Object {
 	var result object.String
 	//判断在语句中是否有$
-	if program.Expression.(*ast.SentenceStatement).DollarMap == nil {
+	if program.Expression.(*ast.Sentence).DollarMap == nil {
 		result.Value = program.Expression.TokenLiteral()
 	} else {
-		for k := range program.Expression.(*ast.SentenceStatement).DollarMap {
+		for k := range program.Expression.(*ast.Sentence).DollarMap {
 			if realVar, ok := env.Get(k); ok {
-				program.Expression.(*ast.SentenceStatement).DollarMap[k] = realVar
+				program.Expression.(*ast.Sentence).DollarMap[k] = realVar
 			}
 		}
-		result.Value = program.Expression.(*ast.SentenceStatement).RealTokenLiteral()
+		result.Value = program.Expression.(*ast.Sentence).RealTokenLiteral()
 	}
 	result.Value = sendMessage(result.Value, env)
 	return &result
