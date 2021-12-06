@@ -62,7 +62,7 @@ func evalListen(p *ast.ListenStatement, env *object.Environment) object.Object {
 	e, _ := strconv.Atoi(end)
 	time.Sleep(time.Duration(b) * time.Second)
 
-	ans := sendMessageWithTimeOut("\n请输入答案\n", env, e)
+	ans := recvMessageWithTimeOut(env, e)
 	//对听到的结果进行包装，用于evalProgram
 	if strings.HasPrefix(ans, "silence") {
 		ans = "ListenSilence"
@@ -143,8 +143,8 @@ func sendMessage(s string, env *object.Environment) string {
 	return s
 }
 
-//发送消息并设置等待时长
-func sendMessageWithTimeOut(s string, env *object.Environment, e int) string {
+//读取消息并设置等待时长
+func recvMessageWithTimeOut(env *object.Environment, e int) string {
 	id, ok := env.Get("ID")
 	if !ok {
 		log.Fatal("can't find right ID")
