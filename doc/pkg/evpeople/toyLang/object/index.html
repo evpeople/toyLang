@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>object - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.15.15";</script>
+<script src="../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6060/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6060/pkg/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6060/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package object
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "evpeople/toyLang/object"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Object 是用于给所有语句的执行结构构造一个鸭子类型的返回值
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+				<dd><a href="index.html#pkg-constants">Constants</a></dd>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#Boolean">type Boolean</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Boolean.Inspect">func (b *Boolean) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Boolean.Type">func (b *Boolean) Type() ObjectType</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Environment">type Environment</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewEnvironment">func NewEnvironment() *Environment</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Environment.Get">func (e *Environment) Get(name string) (string, bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Environment.Set">func (e *Environment) Set(name string, val string) string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Error">type Error</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Error.Inspect">func (e *Error) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Error.Type">func (e *Error) Type() ObjectType</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Integer">type Integer</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Integer.Inspect">func (i *Integer) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Integer.Type">func (i *Integer) Type() ObjectType</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Null">type Null</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Null.Inspect">func (n *Null) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Null.Type">func (n *Null) Type() ObjectType</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Object">type Object</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ObjectType">type ObjectType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReturnValue">type ReturnValue</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReturnValue.Inspect">func (rv *ReturnValue) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReturnValue.Type">func (rv *ReturnValue) Type() ObjectType</a></dd>
+				
+			
+				
+				<dd><a href="index.html#String">type String</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#String.Inspect">func (b *String) Inspect() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#String.Type">func (b *String) Type() ObjectType</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6060/src/evpeople/toyLang/object/env.go">env.go</a>
+			
+				<a href="http://localhost:6060/src/evpeople/toyLang/object/object.go">object.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+			<h2 id="pkg-constants">Constants</h2>
+			
+				<p>
+所有的返回值的类型，后面所有的struct是一个对应的返回值类型
+</p>
+
+				<pre>const (
+    <span id="INTEGER_OBJ">INTEGER_OBJ</span>      = &#34;INTEGER&#34;
+    <span id="BOOLEAN_OBJ">BOOLEAN_OBJ</span>      = &#34;BOOLEAN&#34;
+    <span id="NULL_OBJ">NULL_OBJ</span>         = &#34;NULL&#34;
+    <span id="RETURN_VALUE_OBJ">RETURN_VALUE_OBJ</span> = &#34;RETURN_VALUE&#34;
+    <span id="ERROR_OBJ">ERROR_OBJ</span>        = &#34;ERROR&#34;
+    <span id="STRING_OBJ">STRING_OBJ</span>       = &#34;STRING&#34;
+)</pre>
+			
+		
+		
+		
+		
+			
+			
+			<h2 id="Boolean">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=890:925#L30">Boolean</a>
+				<a class="permalink" href="index.html#Boolean">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Boolean struct {
+<span id="Boolean.Value"></span>    Value <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Boolean.Inspect">func (*Boolean) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=986:1020#L35">Inspect</a>
+					<a class="permalink" href="index.html#Boolean.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Boolean">Boolean</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Boolean.Type">func (*Boolean) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=927:962#L34">Type</a>
+					<a class="permalink" href="index.html#Boolean.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Boolean">Boolean</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Environment">type <a href="http://localhost:6060/src/evpeople/toyLang/object/env.go?s=161:213#L1">Environment</a>
+				<a class="permalink" href="index.html#Environment">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Environment 是给每个用户一个独立的执行环境
+</p>
+
+			<pre>type Environment struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewEnvironment">func <a href="http://localhost:6060/src/evpeople/toyLang/object/env.go?s=526:560#L12">NewEnvironment</a>
+					<a class="permalink" href="index.html#NewEnvironment">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewEnvironment() *<a href="index.html#Environment">Environment</a></pre>
+				<p>
+New 用于新建一个执行环境，
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Environment.Get">func (*Environment) <a href="http://localhost:6060/src/evpeople/toyLang/object/env.go?s=255:308#L1">Get</a>
+					<a class="permalink" href="index.html#Environment.Get">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Environment">Environment</a>) Get(name <a href="http://localhost:6060/pkg/builtin/#string">string</a>) (<a href="http://localhost:6060/pkg/builtin/#string">string</a>, <a href="http://localhost:6060/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Get 用于从执行环境中获取值
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Environment.Set">func (*Environment) <a href="http://localhost:6060/src/evpeople/toyLang/object/env.go?s=390:447#L6">Set</a>
+					<a class="permalink" href="index.html#Environment.Set">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Environment">Environment</a>) Set(name <a href="http://localhost:6060/pkg/builtin/#string">string</a>, val <a href="http://localhost:6060/pkg/builtin/#string">string</a>) <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+Set 用于初始化执行环境
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Error">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1370:1407#L49">Error</a>
+				<a class="permalink" href="index.html#Error">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Error struct {
+<span id="Error.Message"></span>    Message <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Error.Inspect">func (*Error) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1464:1496#L54">Inspect</a>
+					<a class="permalink" href="index.html#Error.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Error">Error</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Error.Type">func (*Error) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1409:1442#L53">Type</a>
+					<a class="permalink" href="index.html#Error.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Error">Error</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Integer">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=718:754#L23">Integer</a>
+				<a class="permalink" href="index.html#Integer">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Integer struct {
+<span id="Integer.Value"></span>    Value <a href="http://localhost:6060/pkg/builtin/#int64">int64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Integer.Inspect">func (*Integer) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=756:790#L27">Inspect</a>
+					<a class="permalink" href="index.html#Integer.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Integer">Integer</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Integer.Type">func (*Integer) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=830:865#L28">Type</a>
+					<a class="permalink" href="index.html#Integer.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Integer">Integer</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Null">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1061:1079#L37">Null</a>
+				<a class="permalink" href="index.html#Null">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Null struct{}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Null.Inspect">func (*Null) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1134:1165#L40">Inspect</a>
+					<a class="permalink" href="index.html#Null.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (n *<a href="index.html#Null">Null</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Null.Type">func (*Null) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1081:1113#L39">Type</a>
+					<a class="permalink" href="index.html#Null.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (n *<a href="index.html#Null">Null</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Object">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=504:566#L11">Object</a>
+				<a class="permalink" href="index.html#Object">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Inspect 方法用于提供一个通用的获取对象内部信息的方法，Type提供用于获取对象类型的方法
+</p>
+
+			<pre>type Object interface {
+    Type() <a href="index.html#ObjectType">ObjectType</a>
+    Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ObjectType">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=80:102#L1">ObjectType</a>
+				<a class="permalink" href="index.html#ObjectType">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+定义了所有的语句返回值的类型
+</p>
+
+			<pre>type ObjectType <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReturnValue">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1186:1227#L42">ReturnValue</a>
+				<a class="permalink" href="index.html#ReturnValue">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReturnValue struct {
+<span id="ReturnValue.Value"></span>    Value <a href="index.html#Object">Object</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ReturnValue.Inspect">func (*ReturnValue) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1298:1337#L47">Inspect</a>
+					<a class="permalink" href="index.html#ReturnValue.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rv *<a href="index.html#ReturnValue">ReturnValue</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ReturnValue.Type">func (*ReturnValue) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=1229:1269#L46">Type</a>
+					<a class="permalink" href="index.html#ReturnValue.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rv *<a href="index.html#ReturnValue">ReturnValue</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="String">type <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=568:604#L16">String</a>
+				<a class="permalink" href="index.html#String">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type String struct {
+<span id="String.Value"></span>    Value <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="String.Inspect">func (*String) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=663:696#L21">Inspect</a>
+					<a class="permalink" href="index.html#String.Inspect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#String">String</a>) Inspect() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="String.Type">func (*String) <a href="http://localhost:6060/src/evpeople/toyLang/object/object.go?s=606:640#L20">Type</a>
+					<a class="permalink" href="index.html#String.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#String">String</a>) Type() <a href="index.html#ObjectType">ObjectType</a></pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.15.15.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

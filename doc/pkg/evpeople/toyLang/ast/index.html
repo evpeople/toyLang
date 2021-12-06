@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>ast - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.15.15";</script>
+<script src="../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6060/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6060/pkg/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6060/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package ast
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "evpeople/toyLang/ast"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Ast提供了抽象语法树节点的鸭子类型的定义
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#BranchCase">type BranchCase</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#BranchCase.TokenLiteral">func (lt *BranchCase) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#BranchStatement">type BranchStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#BranchStatement.TokenLiteral">func (LS *BranchStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#DefaultStatement">type DefaultStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DefaultStatement.TokenLiteral">func (LS *DefaultStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ExitStatement">type ExitStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExitStatement.TokenLiteral">func (LS *ExitStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Expression">type Expression</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Identifier">type Identifier</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Identifier.TokenLiteral">func (i *Identifier) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ListenStatement">type ListenStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ListenStatement.TokenLiteral">func (LS *ListenStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ListenTime">type ListenTime</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ListenTime.TokenLiteral">func (lt *ListenTime) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Node">type Node</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Program">type Program</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Program.TokenLiteral">func (p *Program) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Sentence">type Sentence</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Sentence.RealTokenLiteral">func (st Sentence) RealTokenLiteral() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Sentence.TokenLiteral">func (st *Sentence) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SilenceBranch">type SilenceBranch</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SilenceBranch.TokenLiteral">func (lt *SilenceBranch) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SilenceStatement">type SilenceStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SilenceStatement.TokenLiteral">func (LS *SilenceStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SpeakStatement">type SpeakStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SpeakStatement.TokenLiteral">func (SS *SpeakStatement) TokenLiteral() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Statement">type Statement</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#StepStatement">type StepStatement</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#StepStatement.GetBranch">func (SS *StepStatement) GetBranch(a string) string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#StepStatement.TokenLiteral">func (SS *StepStatement) TokenLiteral() string</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go">ast.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="BranchCase">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=4886:4942#L167">BranchCase</a>
+				<a class="permalink" href="index.html#BranchCase">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+用于记录Branch语句的跳转条件已经对应的跳转结果的expression
+</p>
+
+			<pre>type BranchCase struct {
+<span id="BranchCase.Case"></span>    Case   <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="BranchCase.Branch"></span>    Branch <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="BranchCase.TokenLiteral">func (*BranchCase) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5071:5114#L177">TokenLiteral</a>
+					<a class="permalink" href="index.html#BranchCase.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (lt *<a href="index.html#BranchCase">BranchCase</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="BranchStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=4517:4595#L155">BranchStatement</a>
+				<a class="permalink" href="index.html#BranchStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Branch语句构造语法节点
+</p>
+
+			<pre>type BranchStatement struct {
+<span id="BranchStatement.Token"></span>    Token      <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="BranchStatement.Expression"></span>    Expression <a href="index.html#Expression">Expression</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="BranchStatement.TokenLiteral">func (*BranchStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=4726:4774#L164">TokenLiteral</a>
+					<a class="permalink" href="index.html#BranchStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (LS *<a href="index.html#BranchStatement">BranchStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="DefaultStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5842:5921#L208">DefaultStatement</a>
+				<a class="permalink" href="index.html#DefaultStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Default语句对应的语法节点
+</p>
+
+			<pre>type DefaultStatement struct {
+<span id="DefaultStatement.Token"></span>    Token      <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="DefaultStatement.Expression"></span>    Expression <a href="index.html#Expression">Expression</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="DefaultStatement.TokenLiteral">func (*DefaultStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=6019:6068#L217">TokenLiteral</a>
+					<a class="permalink" href="index.html#DefaultStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (LS *<a href="index.html#DefaultStatement">DefaultStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现表达式
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ExitStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=6132:6180#L220">ExitStatement</a>
+				<a class="permalink" href="index.html#ExitStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Exit语句对应的语法节点
+</p>
+
+			<pre>type ExitStatement struct {
+<span id="ExitStatement.Token"></span>    Token <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ExitStatement.TokenLiteral">func (*ExitStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=6275:6321#L228">TokenLiteral</a>
+					<a class="permalink" href="index.html#ExitStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (LS *<a href="index.html#ExitStatement">ExitStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现表达式
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Expression">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=393:478#L10">Expression</a>
+				<a class="permalink" href="index.html#Expression">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Expression是表意的语句，不能执行，但是说明了其他语句怎么执行
+</p>
+
+			<pre>type Expression interface {
+    <a href="index.html#Node">Node</a>
+    <span class="comment">// contains filtered or unexported methods</span>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Identifier">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=1605:1664#L54">Identifier</a>
+				<a class="permalink" href="index.html#Identifier">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Identifier 标识符表达式对应的语法节点
+</p>
+
+			<pre>type Identifier struct {
+<span id="Identifier.Token"></span>    Token <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="Identifier.Value"></span>    Value <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Identifier.TokenLiteral">func (*Identifier) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=1791:1833#L63">TokenLiteral</a>
+					<a class="permalink" href="index.html#Identifier.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Identifier">Identifier</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ListenStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=3787:3865#L125">ListenStatement</a>
+				<a class="permalink" href="index.html#ListenStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Listen构造的语法节点
+</p>
+
+			<pre>type ListenStatement struct {
+<span id="ListenStatement.Token"></span>    Token      <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="ListenStatement.Expression"></span>    Expression <a href="index.html#Expression">Expression</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ListenStatement.TokenLiteral">func (*ListenStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=3996:4044#L134">TokenLiteral</a>
+					<a class="permalink" href="index.html#ListenStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (LS *<a href="index.html#ListenStatement">ListenStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ListenTime">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=4140:4194#L137">ListenTime</a>
+				<a class="permalink" href="index.html#ListenTime">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+用于记录什么时候开始听，听多长时间的表达式
+</p>
+
+			<pre>type ListenTime struct {
+<span id="ListenTime.Start"></span>    Start <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+<span id="ListenTime.Last"></span>    Last  <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ListenTime.TokenLiteral">func (*ListenTime) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=4322:4365#L146">TokenLiteral</a>
+					<a class="permalink" href="index.html#ListenTime.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (lt *<a href="index.html#ListenTime">ListenTime</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Node">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=151:197#L1">Node</a>
+				<a class="permalink" href="index.html#Node">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Node是所有的节点共有的类型
+</p>
+
+			<pre>type Node interface {
+    TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Program">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=535:582#L16">Program</a>
+				<a class="permalink" href="index.html#Program">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Program是DSL生成的程序实际构造出的对象
+</p>
+
+			<pre>type Program struct {
+<span id="Program.Statements"></span>    Statements []<a href="index.html#Statement">Statement</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Program.TokenLiteral">func (*Program) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=655:694#L21">TokenLiteral</a>
+					<a class="permalink" href="index.html#Program.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Program">Program</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+TokenLiteral用于实现 Node类型，同时返回首语句的类型
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Sentence">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=2502:2787#L78">Sentence</a>
+				<a class="permalink" href="index.html#Sentence">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Sentence在生成的过程，保存了一个DollarMap，用于在不同的用户执行的时候，从不同的environment中取值，具体流程是，发现一个语句有不为空的DollarMap时，遍历DollarMap，并在Environment中取相应的键，填充DollarMap的值，最后通过RealLiteral返回结果
+</p>
+
+			<pre>type Sentence struct {
+<span id="Sentence.Token"></span>    Token     <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="Sentence.Value"></span>    Value     <a href="http://localhost:6060/pkg/builtin/#string">string</a>            <span class="comment">//通过拼接 + 和$ 得出的结果</span>
+<span id="Sentence.DollarMap"></span>    DollarMap map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]<a href="http://localhost:6060/pkg/builtin/#string">string</a> <span class="comment">//用于存储语法节点中，$出现的位置和对应的表达式，并在执行的时候给对应的表达式通过环境变量赋值。</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Sentence.RealTokenLiteral">func (Sentence) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=3076:3120#L94">RealTokenLiteral</a>
+					<a class="permalink" href="index.html#Sentence.RealTokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (st <a href="index.html#Sentence">Sentence</a>) RealTokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+由于在运行时返回从 环境变量中已经提取了信息的最终构成的Sentence
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Sentence.TokenLiteral">func (*Sentence) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=2911:2952#L89">TokenLiteral</a>
+					<a class="permalink" href="index.html#Sentence.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (st *<a href="index.html#Sentence">Sentence</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SilenceBranch">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5560:5604#L194">SilenceBranch</a>
+				<a class="permalink" href="index.html#SilenceBranch">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SilenceBranch所对应的表达式的语法节点
+</p>
+
+			<pre>type SilenceBranch struct {
+<span id="SilenceBranch.Branch"></span>    Branch <a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SilenceBranch.TokenLiteral">func (*SilenceBranch) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5735:5781#L203">TokenLiteral</a>
+					<a class="permalink" href="index.html#SilenceBranch.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (lt *<a href="index.html#SilenceBranch">SilenceBranch</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SilenceStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5218:5297#L182">SilenceStatement</a>
+				<a class="permalink" href="index.html#SilenceStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Silence构造的语句的语法节点
+</p>
+
+			<pre>type SilenceStatement struct {
+<span id="SilenceStatement.Token"></span>    Token      <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="SilenceStatement.Expression"></span>    Expression <a href="index.html#Expression">Expression</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SilenceStatement.TokenLiteral">func (*SilenceStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=5429:5478#L191">TokenLiteral</a>
+					<a class="permalink" href="index.html#SilenceStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (LS *<a href="index.html#SilenceStatement">SilenceStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SpeakStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=1901:1978#L66">SpeakStatement</a>
+				<a class="permalink" href="index.html#SpeakStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Speak 语句所对应的语法节点
+</p>
+
+			<pre>type SpeakStatement struct {
+<span id="SpeakStatement.Token"></span>    Token      <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="SpeakStatement.Expression"></span>    Expression <a href="index.html#Expression">Expression</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SpeakStatement.TokenLiteral">func (*SpeakStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=2108:2155#L75">TokenLiteral</a>
+					<a class="permalink" href="index.html#SpeakStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (SS *<a href="index.html#SpeakStatement">SpeakStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Statement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=252:303#L4">Statement</a>
+				<a class="permalink" href="index.html#Statement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Statement是可执行的语句，如Speak和Listen
+</p>
+
+			<pre>type Statement interface {
+    <a href="index.html#Node">Node</a>
+    <span class="comment">// contains filtered or unexported methods</span>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="StepStatement">type <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=949:1088#L30">StepStatement</a>
+				<a class="permalink" href="index.html#StepStatement">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+StepStatement是每一个Step所构造出的对象，在AllStatement里存放所有的语句，在CaseBranch里存储不同的输入所对应跳转对象
+</p>
+
+			<pre>type StepStatement struct {
+<span id="StepStatement.Token"></span>    Token        <a href="../token/index.html">token</a>.<a href="../token/index.html#Token">Token</a>
+<span id="StepStatement.Name"></span>    Name         *<a href="index.html#Identifier">Identifier</a>
+<span id="StepStatement.ALLStatement"></span>    ALLStatement []<a href="index.html#Statement">Statement</a>
+<span id="StepStatement.CaseBranch"></span>    CaseBranch   map[<a href="http://localhost:6060/pkg/builtin/#string">string</a>]<a href="http://localhost:6060/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="StepStatement.GetBranch">func (*StepStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=1395:1446#L44">GetBranch</a>
+					<a class="permalink" href="index.html#StepStatement.GetBranch">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (SS *<a href="index.html#StepStatement">StepStatement</a>) GetBranch(a <a href="http://localhost:6060/pkg/builtin/#string">string</a>) <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于获取输入对应的Branch，并在不能匹配成功的时候返回Default
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="StepStatement.TokenLiteral">func (*StepStatement) <a href="http://localhost:6060/src/evpeople/toyLang/ast/ast.go?s=1234:1280#L41">TokenLiteral</a>
+					<a class="permalink" href="index.html#StepStatement.TokenLiteral">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (SS *<a href="index.html#StepStatement">StepStatement</a>) TokenLiteral() <a href="http://localhost:6060/pkg/builtin/#string">string</a></pre>
+				<p>
+用于实现Node，并返回当前节点内部的属性
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.15.15.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
