@@ -20,8 +20,8 @@ var port, file string
 
 func init() {
 	// flag.ContinueOnError
-	flag.StringVar(&port, "port", "20000", "默认采用端口是20000")
-	flag.StringVar(&file, "file", "test.Toy", "默认使用的文件时test.Toy")
+	flag.StringVar(&port, "port", "20000", "运行在的端口号，默认是20000")
+	flag.StringVar(&file, "file", "test.Toy", "读取的DSL文件，默认是test.Toy")
 }
 func main() {
 	flag.Parse()
