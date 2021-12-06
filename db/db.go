@@ -1,3 +1,4 @@
+//DB 用于与数据库通过json通信的包
 package db
 
 import (
