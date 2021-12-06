@@ -15,6 +15,7 @@ import (
 	"time"
 )
 
+//通过连接id对应到每一个新建的连接
 var Eval_Conn map[int]net.Conn
 
 //Eval函数是实际执行的函数，为不同节点调用不同的执行方法，main函数调用其来执行Step节点的集合，evalProgram函数调用其来遍历Step节点自身所拥有的语句们

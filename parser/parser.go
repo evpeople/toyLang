@@ -1,4 +1,4 @@
-//Parser 是语法分析包，用于将Token构成一棵树，采用的是递归下降分析
+//Parser 是语法分析包，用于将Token构成一棵树
 package parser
 
 import (
@@ -85,12 +85,6 @@ func (p *Parser) parseSilenceStatement() *ast.SilenceStatement {
 	return stmt
 }
 
-// func (p *Parser) parseDefaultStatement() *ast.DefaultStatement {
-
-// 	stmt := &ast.DefaultStatement{Token: p.curToken}
-// 	stmt.Expression = p.parseSilence()
-// 	return stmt
-// }
 func (p *Parser) parseSilence() *ast.SilenceBranch {
 	stmt := &ast.SilenceBranch{}
 	if p.expectPeek(token.IDENT) {
@@ -157,6 +151,7 @@ func (p *Parser) parseSentence() *ast.Sentence {
 			p.nextToken()
 		case token.PLUS:
 			p.nextToken()
+			//用于初始化Dollar，只构造键，不填充值
 		case token.DOLLAR:
 			if dollarMap == nil {
 				dollarMap = make(map[string]string)
@@ -187,9 +182,7 @@ func (p *Parser) parseStepStatement() *ast.StepStatement {
 				stmt.CaseBranch = make(map[string]string)
 			}
 			if s, ok := ostmt.(*ast.SilenceStatement); ok {
-				// if s.TokenLiteral() == "Silence" {
 				stmt.CaseBranch[s.TokenLiteral()] = s.Expression.TokenLiteral()
-				// }
 			}
 			if t, ok := ostmt.(*ast.BranchStatement); ok {
 				stmt.CaseBranch[t.Expression.(*ast.BranchCase).Case] = t.Expression.(*ast.BranchCase).Branch

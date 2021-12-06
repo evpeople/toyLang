@@ -4,9 +4,10 @@ import (
 	"fmt"
 )
 
+//定义了所有的语句返回值的类型
 type ObjectType string
 
-//所有的返回值的类型
+//所有的返回值的类型，后面所有的struct是一个对应的返回值类型
 const (
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"
@@ -16,7 +17,7 @@ const (
 	STRING_OBJ       = "STRING"
 )
 
-//Inspect 方法用于提供一个通用的获取对象内部信息的方法
+//Inspect 方法用于提供一个通用的获取对象内部信息的方法，Type提供用于获取对象类型的方法
 type Object interface {
 	Type() ObjectType
 	Inspect() string
