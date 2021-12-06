@@ -1,6 +1,4 @@
-Step welcome
-	Speak '你好'+$name  +' ,请问你想 投诉 '+ '还是' +'查看账单，投诉请发送 投诉 查看账单请发送 账单，离开请发送byebye'
-	Listen 2,3
+Step welcome Speak '你好'+$name  +' ,请问你想 投诉 '+ '还是' +'查看	😀账单，投诉请发送 投诉 查看账单请发送 账单，离开请发送byebye' Listen 2,3
 	Branch '投诉',complainProc
 	Branch '账单',billProc
 	Branch 'byebye',thanks
@@ -10,7 +8,6 @@ Step welcome
 	Step complainProc
 	Speak '我是投诉的回复，请您讲'
 	Listen 2,4
-	Speak '您的投诉我已经记住了，谢谢'
 	Exit
 	
 	Step thanks
@@ -19,8 +16,6 @@ Step welcome
 	
 	Step billProc
 	Speak '我是账单机器人，您的账单是'+ $amount
-	Listen 2,4
-	Branch '账单',billProc
 	Exit
 	
 	Step silenceProc

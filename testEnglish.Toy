@@ -1,0 +1,32 @@
+	Step welcome
+	Speak $name + ' hello'+' ,world do you want to tousu or zhangdan'
+	Listen 2,3
+	Branch 'tousu',complainProc
+	Branch 'zhangdan',billProc
+	Silence silenceProc
+	Default defaultProc
+	
+	Step complainProc
+	Speak 'I am tousu complainProc'
+	Listen 2,4
+	Default thanks
+	
+	Step thanks
+	Speak 'I am thanks thank you'
+	Exit
+	
+	Step billProc
+	Speak 'I am zhangdan billProc your zhangdan'+ $amount
+	Exit
+	
+	Step silenceProc
+	Speak 'I am silence  I can not listen'
+	Listen 2,4
+	Branch 'tousu',complainProc
+	Branch 'zhangdan',billProc
+	Silence silenceProc
+	Default defaultProc
+	
+	Step defaultProc
+	Speak 'I am defautProc'
+	Exit
