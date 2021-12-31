@@ -70,12 +70,21 @@ Silence和Default跟着的都是一个英文标识符，分别表明在用户没
 开始符号为Program
 
 Program -> Step
+
 Step->TrueStep Step|TrueStep
+
 TrueStep->"Step" ident Eval
+
 Eval->Speak Listen Branch|Speak "Exit"|"Exit"
+
 Speak->"Speak" String
+
 String->'Runes'
+
 Runes-> Runes rune|RunesPlus Runes|$ident|rune
+
 RunesPlus->Runes +
+
 Listen->"Listen" num , num
+
 Branch ->"Default" ident|"Silence" ident|"Branch" 'rune',ident
