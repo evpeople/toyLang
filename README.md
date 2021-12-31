@@ -1,12 +1,18 @@
 # toyLang
 
 程序执行，直接运行./toyLang -h会给出帮助信息
+
 若程序运行时报错c库的版本不匹配，可以go run main.go 直接运行，或者go build用当前机器的c库重新编译
+
 其中./toyLang -port 2000 是指定所运行的端口，-file是指定所读取的DSL文件
+
 遇到乱码的时候，可以-file testEnglish.Toy 读取英文DSL，从而解决CMD等不支持UTF-8编码的问题
+
 通过telnet 连接到指定开启的端口进行交互
+
 ## 软件开发文档
 位于./doc/pkg 文件夹中点击index.html后，即可在浏览器中进行浏览，并提供跳转到各个函数详细界面的功能
+
 
 当电脑上有go语言环境的时候，可以进入每个子目录，通过go doc 命令获得函数的帮助
 也可以通过  `go get -v  golang.org/x/tools/cmd/godoc` 安装godoc，然后进入toyLang文件夹，输入godoc命令，在localhost:6060访问文档。
